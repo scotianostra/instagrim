@@ -9,8 +9,19 @@ and open the template in the editor.
 */
 
 
+
+body {
+    background-color: #fafafa;
+}
 nav {
-    text-align: left;
-    border: 2px;
-    float: right;
+    background-color: #fff;
+    padding: 26px;
+    height: 70px;
+    border-bottom-color: #edeeee;
+    border-bottom-width: 1px;
+    
+}
+.navbar-logo {
+    color: #125688;
+    font-family: billabong;
 }
