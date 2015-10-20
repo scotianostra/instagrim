@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Instagrim</title>
-        <link rel="stylesheet" type="text/css" href="/Instagrim/css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="/InstaDom/css/bootstrap.css" />
 
     </head>
     <body>
@@ -21,7 +21,7 @@
         <nav>
             <ul>
                 
-                <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
+                <li><a href="/InstaDom/Images/majed">Sample Images</a></li>
             </ul>
         </nav>
        
@@ -39,7 +39,7 @@
         </article>
         <footer>
             <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
+                <li class="footer"><a href="/InstaDom">Home</a></li>
             </ul>
         </footer>
     </body>

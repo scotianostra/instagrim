@@ -13,15 +13,50 @@ and open the template in the editor.
 body {
     background-color: #fafafa;
 }
+
 nav {
     background-color: #fff;
-    padding: 26px;
+    padding: 34px;
     height: 70px;
     border-bottom-color: #edeeee;
     border-bottom-width: 1px;
     
 }
-.navbar-logo {
+.navbar-brand {
     color: #125688;
-    font-family: billabong;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 15px;
+    font-family: 'Oleo Script', Helvetica, sans-serif;
+    font-size: 28px;
+}
+.navbar-brand:hover {
+    color: #66afe9;
+}
+.navbar.center .navbar-inner {
+    text-align: center;
+}
+
+.navbar.center .navbar-inner .nav {
+    display:inline-block;
+    float: none;
+}
+.navbar-search {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.navbar-status {
+    color: #125688;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 15px;
+    font-family: 'tahoma', sans-serif;
+    font-size: 18px;
+    float: right;
+}
+.navbar-status:hover {
+    color: #66afe9;
 }

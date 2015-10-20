@@ -36,7 +36,7 @@ public class User {
             System.out.println("Can't check your password");
             return false;
         }
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("instadom");
         PreparedStatement ps = session.prepare("insert into userprofiles (login,password) Values(?,?)");
        
         BoundStatement boundStatement = new BoundStatement(ps);
@@ -57,7 +57,7 @@ public class User {
             System.out.println("Can't check your password");
             return false;
         }
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("instadom");
         PreparedStatement ps = session.prepare("select password from userprofiles where login =?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
