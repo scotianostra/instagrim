@@ -54,11 +54,11 @@
                     %>
 
                     <a class="navbar-status" href="/InstaDom/Images/<%=lg.getUsername()%>"><%=UserName%></a>
-                    <a class="navbar-status" href="/InstaDom/Logout/">Log Out</a>
+                    <a class="navbar-status" href="/InstaDom/Logout">Log Out</a>
                     <%}
                             }else{
                                 %>
-                <a class="navbar-status" href="/InstaDom">Log In</a>
+                <a class="navbar-status" href="login.jsp">Log In</a>
                 <%
                                         
                             

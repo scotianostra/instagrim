@@ -26,21 +26,35 @@ import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
  *
  * @author Dominic
  */
-@WebServlet(urlPatterns={"/Logout"})
+@WebServlet(name = "Logout", urlPatterns={"/Logout"})
 public class Logout extends HttpServlet{
     
+     @Override
      protected void doGet(HttpServletRequest request, HttpServletResponse response)  
                                 throws ServletException, IOException {  
          
-         RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
-	 rd.forward(request,response);
-
-         //response.sendRedirect("index.jsp");
+         HttpSession session = request.getSession();
          
-         //HttpSession session=request.getSession();  
-         //session.invalidate(); 
+         session.removeAttribute("LoggedIn");
+         session.removeAttribute("username");
+         
+         session.invalidate();
+         
+         response.sendRedirect("/InstaDom");
+         
+         
             
             
      }
+    /**
+    * Returns a short description of the servlet.
+    *
+    * @return a String containing servlet description
+    */
+    @Override
+    public String getServletInfo() {
+    return "Short description";
+    }
     
-}
+ }
+
