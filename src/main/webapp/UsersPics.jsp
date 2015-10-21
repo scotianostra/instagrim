@@ -44,7 +44,27 @@
             </div>
                 
             <div class="navbar-status navbar-brand text-center col-md-4">
-                <a class="navbar-status navbar-brand" href="#" >user name</a>
+                
+                 <%
+                        
+                        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                        if (lg != null) {
+                            String UserName = lg.getUsername();
+                            if (lg.getlogedin()) {
+                    %>
+
+                    <a class="navbar-status" href="/InstaDom/Images/<%=lg.getUsername()%>"><%=UserName%></a>
+                    <a class="navbar-status" href="/InstaDom/Logout/">Log Out</a>
+                    <%}
+                            }else{
+                                %>
+                <a class="navbar-status" href="/InstaDom">Log In</a>
+                <%
+                                        
+                            
+                    }%>
+                
+               
             </div>
             </ul>
         </nav> 

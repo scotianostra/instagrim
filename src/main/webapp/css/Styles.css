@@ -56,7 +56,9 @@ nav {
     font-family: 'tahoma', sans-serif;
     font-size: 18px;
     float: right;
+   
 }
 .navbar-status:hover {
     color: #66afe9;
+    text-decoration: none;
 }
