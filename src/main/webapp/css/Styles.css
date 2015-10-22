@@ -58,7 +58,48 @@ nav {
     float: right;
    
 }
+
 .navbar-status:hover {
     color: #66afe9;
     text-decoration: none;
+}
+.register-status {
+    color: #125688;
+    font-family: 'tahoma', sans-serif;
+    font-size: 18px;
+    float: none;
+    margin-top: 10px;
+   
+}
+
+.register-status:hover {
+    color: #66afe9;
+    text-decoration: none;
+}
+
+.border {
+    background-color: #fff;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+}
+
+.centre-div {    
+     float: none;
+     margin-left: auto;
+     margin-right: auto;
+}
+.centre-img {    
+     display: block;
+     margin-left: auto;
+     margin-right: auto;
+     margin-bottom: 30px;
+     
+}
+.centre-img img {    
+     height: 300px;
+     width: 300px;
+     display: block;
+     margin-left: auto;
+     margin-right: auto;
 }

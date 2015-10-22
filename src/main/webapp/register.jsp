@@ -69,14 +69,19 @@
             </ul>
         </nav> 
        
-        <div class="container">   
+        <div class="container"> 
             
-            <div class="col-md-4"
+            <br>
+            <br>
+            <br>
+            <br>
+            
+            <div class="col-md-4 border centre-div">
         
-            <h1>Register as user</h1>
+            <h2 class="text-center">Register</h2>
             <form method="POST"  action="Register">
                 <div class="form-group">
-                    <label>Name</label>
+                    <label>User Name</label>
                     <input type="text" class="form-control" name="username" placeholder="Name">
                  </div>
                 
@@ -84,8 +89,9 @@
                     <label>Password</label>
                     <input type="password" class="form-control" name="password" placeholder="Password">
                  </div>
-    
+                <div class="text-center">
                 <button type="submit" class="btn btn-primary">Register</button>
+                </div>
             </form>
                 
             </div>

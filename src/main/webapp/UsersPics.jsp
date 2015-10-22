@@ -54,6 +54,7 @@
                     %>
 
                     <a class="navbar-status" href="/InstaDom/Images/<%=lg.getUsername()%>"><%=UserName%></a>
+                     <a class="navbar-status" href="/InstaDom/upload.jsp">Add Pic</a>
                     <a class="navbar-status" href="/InstaDom/Logout">Log Out</a>
                     <%}
                             }else{
@@ -76,7 +77,7 @@
        
             
        
-        <article>
+        
             <h1>Your Pics</h1>
         <%
             java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
@@ -91,8 +92,8 @@
                 Pic p = (Pic) iterator.next();
 
         %>
-        <div class="col col-md-4">
-        <a href="/InstaDom/Image/<%=p.getSUUID()%>" ><img src="/InstaDom/Thumb/<%=p.getSUUID()%>"></a>
+        <div class="col col-md-4 centre-img">
+        <a href="/InstaDom/Image/<%=p.getSUUID()%>" ><img  src="/InstaDom/Image/<%=p.getSUUID()%>"></a>
         </div>
         
         <%
@@ -100,7 +101,7 @@
             }
             }
         %>
-        </article>
+        
         <footer>
             <ul>
                 <li class="footer"><a href="/InstaDom">Home</a></li>

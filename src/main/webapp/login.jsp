@@ -68,23 +68,36 @@
             </div>
             </ul>
         </nav> 
-       
-        <article>
-            <h3>Login</h3>
+       <div class="container">
+           
+            <br>
+            <br>
+            <br>
+            <br>
+           
+            <div class="col-md-4 border centre-div">
+        
+            <h2 class="text-center">Login</h2>
             <form method="POST"  action="Login">
-                <ul>
-                    <li>User Name <input type="text" name="username"></li>
-                    <li>Password <input type="password" name="password"></li>
-                </ul>
-                <br/>
-                <input type="submit" value="Login"> 
+                <div class="form-group">
+                    <label>User Name</label>
+                    <input type="text" class="form-control" name="username" placeholder="Name">
+                 </div>
+                
+                 <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="password" placeholder="Password">
+                 </div>
+                <div class="text-center">
+                <button type="submit" class="btn btn-primary">Login</button>
+                </div>
             </form>
-
-        </article>
+            </div>
+        
         <footer>
-            <ul>
-                <li class="footer"><a href="/InstaDom">Home</a></li>
-            </ul>
+           
         </footer>
+           
+       </div>
     </body>
 </html>
