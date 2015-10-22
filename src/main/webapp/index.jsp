@@ -36,7 +36,7 @@
              <form class = "navbar-form" role = "search">
          
                  <div class = "form-group">
-                 <input type = "text" class = "form-control" placeholder = "Search">
+                 <input type = "text" class = "form-control" placeholder = "Search for users">
                  </div>
                  <button type = "submit" class = "btn btn-default">Search</button>
          
@@ -71,6 +71,7 @@
         <footer>
             <ul>
                 <li class="footer"><a href="/InstaDom">Home</a></li>
+                <li class="footer"><a href="register.jsp">Register</a></li>
                 <li class="footer"><a href="upload.jsp">Upload</a></li>
             </ul>
         </footer>

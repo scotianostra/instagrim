@@ -1,45 +1,100 @@
 <%-- 
-    Document   : register.jsp
-    Created on : Sep 28, 2014, 6:29:51 PM
+    Document   : UsersPics
+    Created on : Sep 24, 2014, 2:52:48 PM
     Author     : Administrator
 --%>
 
+<%@page import="java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Instagrim</title>
         <link rel="stylesheet" type="text/css" href="/InstaDom/css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="/InstaDom/css/Styles.css" />
+        
+        <link href="http://fonts.googleapis.com/css?family=Oleo+Script" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+        
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="/InstaDom/js/bootstrap.js"></script>
     </head>
+    
     <body>
-        <header>
-        <h1>InstaGrim ! </h1>
-        <h2>Your world in Black and White</h2>
-        </header>
-        <nav>
+        
+        <nav class="navbar">
             <ul>
+            <div class="navbar-brand text-center col-md-4">
+                <a class="navbar-brand" href="/InstaDom">Instagrim</a>
+            </div>
                 
-                <li><a href="/InstaDom/Images/majed">Sample Images</a></li>
-            </ul>
-        </nav>
-       
-        <article>
-            <h3>Register as user</h3>
-            <form method="POST"  action="Register">
-                <ul>
-                    <li>User Name <input type="text" name="username"></li>
-                    <li>Password <input type="password" name="password"></li>
-                </ul>
-                <br/>
-                <input type="submit" value="Regidter"> 
-            </form>
+            <div class="navbar-search text-center col-md-4">
+             <form class = "navbar-form" role = "search">
+         
+                 <div class = "form-group">
+                 <input type = "text" class = "form-control" placeholder = "Search for users">
+                 </div>
+                 <button type = "submit" class = "btn btn-default">Search</button>
+         
+             </form>    
+            </div>
+                
+            <div class="navbar-status navbar-brand text-center col-md-4">
+                
+                 <%
+                        
+                        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                        if (lg != null) {
+                            String UserName = lg.getUsername();
+                            if (lg.getlogedin()) {
+                    %>
 
-        </article>
-        <footer>
-            <ul>
-                <li class="footer"><a href="/InstaDom">Home</a></li>
+                    <a class="navbar-status" href="/InstaDom/Images/<%=lg.getUsername()%>"><%=UserName%></a>
+                    <a class="navbar-status" href="Logout">Log Out</a>
+                    <%}
+                            }else{
+                                %>
+                <a class="navbar-status" href="login.jsp">Log In</a>
+                <%
+                                        
+                            
+                    }%>
+                
+               
+            </div>
             </ul>
+        </nav> 
+       
+        <div class="container">   
+            
+            <div class="col-md-4"
+        
+            <h1>Register as user</h1>
+            <form method="POST"  action="Register">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" name="username" placeholder="Name">
+                 </div>
+                
+                 <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="password" placeholder="Password">
+                 </div>
+    
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+                
+            </div>
+
+        
+        <footer>
+            
         </footer>
+            
+        </div>
     </body>
 </html>

@@ -27,7 +27,9 @@ import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
  *
  * @author Administrator
  */
-@WebFilter(filterName = "ProtectPages", urlPatterns = {"/upload.jsp"}, dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.INCLUDE})
+@WebFilter(filterName = "ProtectPages", urlPatterns = {"/upload.jsp"},
+        dispatcherTypes = {DispatcherType.REQUEST,
+        DispatcherType.FORWARD, DispatcherType.INCLUDE})
 public class ProtectPages implements Filter {
     
     private static final boolean debug = true;
@@ -117,7 +119,7 @@ public class ProtectPages implements Filter {
 	LoggedIn li=(LoggedIn)session.getAttribute("LoggedIn");
         System.out.println("Session in filter "+session);
         if ((li == null)  || (li.getlogedin()==false)){
-               System.out.println("Foward to login");
+               System.out.println("Forward to login");
                 RequestDispatcher rd=request.getRequestDispatcher("/login.jsp");
 		rd.forward(request,response);
 
