@@ -48,6 +48,13 @@ public final class Keyspaces {
                     + "      last_name text,\n"
                     + "      email set<text>,\n"
                     + "      addresses  map<text, frozen <address>>\n"
+                    + "      profilepic uuid,\n"
+                    + "      picid uuid,\n"
+                    + "  );";
+            String CreateFollowing = "CREATE TABLE if not exists instadom.following (\n"
+                    + "      username text,\n"
+                    + "      follower text,\n"
+                    + "      PRIMARY KEY (username, follower)\n"
                     + "  );";
             Session session = c.connect();
             try {
