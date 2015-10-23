@@ -28,7 +28,7 @@
     </head>
     
    <body>
-         <%UserProfile u = (UserProfile) request.getAttribute("profilepic"); %>
+         <%UserProfile up = (UserProfile) session.getAttribute("userProfile"); %>
         
         <nav class="navbar">
             <ul>
@@ -85,7 +85,7 @@
            
            <div class="col-md-4 text-center profile-photo-container">
                
-                <img src="/InstaDom/Image/<%=u.getUUID()%>" class="profile-photo img-circle show-in-modal"/>
+                <img src="/InstaDom/Image/<%=up.getUUID()%>" class="profile-photo img-circle show-in-modal"/>
                 <h4 class="text-white text-center name" id="usrName"><%=lg.getUsername()%></h4>                        
                 <hr class="name-separator">
            
@@ -104,7 +104,7 @@
                 <form class="navbar-form" method="POST">                    
                 
                     <div class="input-group" style="display:table;">
-                        First Name: <input class="form-control" autocomplete="off" autofocus="autofocus" type="text" id="inptFirstName" value="<%= u.getFirstname()%>">
+                        First Name: <input class="form-control" autocomplete="off" autofocus="autofocus" type="text" id="inptFirstName" value="<%= up.getFirstname()%>">
                         <span class="input-group-addon" style="width:1%;">
                         <span class=""></span>
                         </span>
@@ -113,7 +113,7 @@
                         <br/>
                         
                     <div class="input-group" style="display:table;">
-                        Last Name: <input class="form-control"  autofocus="autofocus" type="text" id="inptLastName" value="<%= u.getLastname()%>">
+                        Last Name: <input class="form-control"  autofocus="autofocus" type="text" id="inptLastName" value="<%= up.getLastname()%>">
                         <span class="input-group-addon" style="width:1%;">
                         <span class=""></span>
                         </span>
@@ -122,7 +122,7 @@
                         <br/>
                         
                     <div class="input-group" style="display:table;">
-                        Email: <input class="form-control" data-validate="required"  autofocus="autofocus" type="email" id="inptEmail" value="<%= u.getEmail()%>">
+                        Email: <input class="form-control" data-validate="required"  autofocus="autofocus" type="email" id="inptEmail" value="<%= up.getEmail()%>">
                         <span class="input-group-addon" style="width:1%;">
                         <span class=""></span>
                         </span>
