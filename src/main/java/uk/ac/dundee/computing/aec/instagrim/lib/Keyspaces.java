@@ -100,6 +100,15 @@ public final class Keyspaces {
             } catch (Exception et) {
                 System.out.println("Can't create Address Profile " + et);
             }
+            
+            System.out.println("" + CreateFollowing);
+            try {
+                SimpleStatement cqlQuery = new SimpleStatement(CreateFollowing);
+                session.execute(cqlQuery);
+            } catch (Exception et) {
+                System.out.println("Can't create following table " + et);
+            }
+            
             session.close();
 
         } catch (Exception et) {

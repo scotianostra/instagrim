@@ -9,6 +9,7 @@
 <%@page import="java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,7 +28,7 @@
     </head>
     
    <body>
-        <%UserProfile u = (UserProfile) request.getAttribute("userProfile"); %>
+         <%UserProfile u = (UserProfile) request.getAttribute("profilepic"); %>
         
         <nav class="navbar">
             <ul>

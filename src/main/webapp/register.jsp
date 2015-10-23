@@ -89,6 +89,12 @@
                     <label>Password</label>
                     <input type="password" class="form-control" name="password" placeholder="Password">
                  </div>
+                
+                 <div class="form-group">
+                    <label>Email</label>
+                    <input type="password" class="form-control" name="email" placeholder="email">
+                 </div>
+                
                 <div class="text-center">
                 <button type="submit" class="btn btn-primary">Register</button>
                 </div>
