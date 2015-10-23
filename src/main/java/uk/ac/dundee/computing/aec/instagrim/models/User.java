@@ -74,11 +74,18 @@ public class User {
                 if (StoredPass.compareTo(EncodedPassword) == 0)
                     return true;
             }
-        }
-   
-    
-    return false;  
+        } 
+        return false;  
     }
+    
+    public boolean UpdateUser(String firstname, String lastname, String email, String username) {
+        Session session = cluster.connect("instadom");
+        PreparedStatement ps = session.prepare("UPDATE userprofiles SET first_name = ?, last_name = ?, email= ? WHERE login = ?;");
+        BoundStatement boundStatement = new BoundStatement(ps);
+        session.execute(boundStatement.bind(firstname, lastname, email, username));
+        return true;
+    }
+    
        public void setCluster(Cluster cluster) {
         this.cluster = cluster;
     }
