@@ -27,7 +27,8 @@
     </head>
     
    <body>
-       
+        <%UserProfile u = (UserProfile) request.getAttribute("userProfile"); %>
+        
         <nav class="navbar">
             <ul>
             <div class="navbar-brand text-center col-md-4">
@@ -81,7 +82,59 @@
                
            </div>
            
-           <div class="col-md-3">
+           <div class="col-md-4 text-center profile-photo-container">
+               
+                <img src="/InstaDom/Image/<%=u.getUUID()%>" class="profile-photo img-circle show-in-modal"/>
+                <h4 class="text-white text-center name" id="usrName"><%=lg.getUsername()%></h4>                        
+                <hr class="name-separator">
+           
+                <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="Image">
+                    <h4>Upload a profile picture</h4>
+                
+                    <div class="form-group">
+                      <input type="file" name="upfile">
+                     </div>
+                
+                     <input class="btn btn-primary pull-right" type="submit" value="Press">
+                </form>
+           </div>
+           
+           <div>
+                <form class="navbar-form" method="POST">                    
+                
+                    <div class="input-group" style="display:table;">
+                        First Name: <input class="form-control" autocomplete="off" autofocus="autofocus" type="text" id="inptFirstName" value="<%= u.getFirstname()%>">
+                        <span class="input-group-addon" style="width:1%;">
+                        <span class=""></span>
+                        </span>
+                    </div>
+                        
+                        <br/>
+                        
+                    <div class="input-group" style="display:table;">
+                        Last Name: <input class="form-control"  autofocus="autofocus" type="text" id="inptLastName" value="<%= u.getLastname()%>">
+                        <span class="input-group-addon" style="width:1%;">
+                        <span class=""></span>
+                        </span>
+                    </div>
+                        
+                        <br/>
+                        
+                    <div class="input-group" style="display:table;">
+                        Email: <input class="form-control" data-validate="required"  autofocus="autofocus" type="email" id="inptEmail" value="<%= u.getEmail()%>">
+                        <span class="input-group-addon" style="width:1%;">
+                        <span class=""></span>
+                        </span>
+                    </div>  
+                        
+                        <br/>
+                        
+                    <div class="pull-right">
+                        <button type='button' class='btn btn-finish btn-fill btn-sky btn-wd btn-sm' id="btnUpdate">Finish</button>
+                    </div>
+               
+                </form>
+           </div>
                
                
                
