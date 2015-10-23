@@ -7,6 +7,7 @@
 
 
 <%@page import="java.util.*"%>
+<%@page import="javax.servlet.http.HttpServletRequest"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 
@@ -28,7 +29,7 @@
     </head>
     
    <body>
-         <%UserProfile up = (UserProfile) session.getAttribute("userProfile"); %>
+         <%UserProfile up = (UserProfile) request.getAttribute("userProfile"); %>
         
         <nav class="navbar">
             <ul>
@@ -85,6 +86,21 @@
            
            <div class="col-md-4 text-center profile-photo-container">
                
+               <%
+                        
+                        if (up == null) {                      
+                    
+               %>
+               
+                <h1>You have not completed a profile</h1> 
+                <%
+                }   else {
+                %>
+                            
+                            }
+                
+                
+                
                 <img src="/InstaDom/Image/<%=up.getUUID()%>" class="profile-photo img-circle show-in-modal"/>
                 <h4 class="text-white text-center name" id="usrName"><%=lg.getUsername()%></h4>                        
                 <hr class="name-separator">
@@ -101,7 +117,7 @@
            </div>
            
            <div>
-                <form class="navbar-form" method="POST">                    
+                <form class="" method="POST">                    
                 
                     <div class="input-group" style="display:table;">
                         First Name: <input class="form-control" autocomplete="off" autofocus="autofocus" type="text" id="inptFirstName" value="<%= up.getFirstname()%>">
@@ -135,6 +151,11 @@
                     </div>
                
                 </form>
+                        
+               
+                <%
+                    }
+                %>
            </div>
                
                

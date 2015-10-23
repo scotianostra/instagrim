@@ -17,8 +17,9 @@ public class UserProfile {
     private String firstname = null;
     private String lastname = null;
     private UUID profilepic = null;
+    private String email = null;
 
-    public void User() {
+    public void UserProfile() {
 
     }
 
@@ -44,6 +45,14 @@ public class UserProfile {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
     
      public UUID getUUID() {
