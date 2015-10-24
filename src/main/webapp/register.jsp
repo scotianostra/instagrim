@@ -92,7 +92,7 @@
                 
                  <div class="form-group">
                     <label>Email</label>
-                    <input type="password" class="form-control" name="email" placeholder="email">
+                    <input type="text" class="form-control" name="email" placeholder="email">
                  </div>
                 
                 <div class="text-center">

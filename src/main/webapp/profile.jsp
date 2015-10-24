@@ -77,14 +77,8 @@
         </nav> 
        
        <div class="container">
+                               
            
-           <div class="text-center centre-div col-md-4">
-               
-               <h1>You have not completed a profile</h1> 
-               
-           </div>
-           
-           <div class="col-md-4 text-center profile-photo-container">
                
                <%
                         
@@ -92,18 +86,24 @@
                     
                %>
                
-                <div class="col-md-4 border centre-div">
+                <div class="text-center centre-div col-md-5">
+               
+                    <h1>You have not completed a profile</h1> 
+               
+                </div>
+               
+                <div class="col-md-5 border centre-div">
         
-            <h2 class="text-center">Edit Profile</h2>
+            <h2 class="text-center">Complete Profile</h2>
             <form method="POST"  action="Profile">
                 <div class="form-group">
                     <label>First Name</label>
-                    <input type="text" class="form-control" name="first_name" placeholder="Name">
+                    <input type="text" class="form-control" name="firstname" placeholder="Name">
                  </div>
                 
                  <div class="form-group">
                     <label>Last Name</label>
-                    <input type="text" class="form-control" name="last_name" placeholder="Last Name">
+                    <input type="text" class="form-control" name="lastname" placeholder="Last Name">
                  </div>
                 <div class="form-group">
                     <label>Mini Bio</label>
@@ -122,7 +122,7 @@
                             
                             }
                 
-                
+            <div class="col-md-3 border centre-div">
                 
                 <img src="/InstaDom/Image/<%=up.getUUID()%>" class="profile-photo img-circle show-in-modal"/>
                 <h4 class="text-center" id="usrName"><%=lg.getUsername()%></h4>                        
@@ -137,24 +137,24 @@
                 
                      <input class="btn btn-primary pull-right" type="submit" value="Press">
                 </form>
-           </div>
            
-            <div class="col-md-4 border centre-div">
+           
+            <div class="col-md-3 border centre-div">
         
             <h2 class="text-center">Edit Profile</h2>
             <form method="POST"  action="Login">
                 <div class="form-group">
                     <label>First Name</label>
-                    <input type="text" class="form-control" name="first_name" placeholder="Name">
+                    <input type="text" class="form-control" name="first_name" placeholder="<%= up.getFirstname()%>">
                  </div>
                 
                  <div class="form-group">
                     <label>Last Name</label>
-                    <input type="text" class="form-control" name="last_name" placeholder="Password">
+                    <input type="text" class="form-control" name="last_name" placeholder="<%= up.getLastname()%>">
                  </div>
                 <div class="form-group">
                     <label>Mini Bio</label>
-                    <input type="text" class="form-control" name="bio" placeholder="Password">
+                    <input type="text" class="form-control" name="bio" placeholder="<%= up.getBio()%>">
                 </div>
                 <div class="text-center">
                 <button type="submit" class="btn btn-primary">Update</button>
@@ -173,7 +173,7 @@
                
            </div>
            
-       </div>
+       
            
     
        

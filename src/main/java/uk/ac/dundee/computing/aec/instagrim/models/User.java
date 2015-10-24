@@ -14,8 +14,11 @@ import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Set;
 import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
-import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
+import uk.ac.dundee.computing.aec.instagrim.stores.UserProfile;
 
 /**
  *
@@ -27,22 +30,26 @@ public class User {
         
     }
     
-    public boolean RegisterUser(String username, String Password){
-        AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
-        String EncodedPassword=null;
+    public boolean RegisterUser(String username, String Password, String email){
+       AeSimpleSHA1 sha1handler = new AeSimpleSHA1();
+        String EncodedPassword = null;
+
         try {
-            EncodedPassword= sha1handler.SHA1(Password);
-        }catch (UnsupportedEncodingException | NoSuchAlgorithmException et){
+
+            EncodedPassword = sha1handler.SHA1(Password);
+
+        } catch (UnsupportedEncodingException | NoSuchAlgorithmException et) {
+
             System.out.println("Can't check your password");
             return false;
+
         }
+        
         Session session = cluster.connect("instadom");
-        PreparedStatement ps = session.prepare("insert into userprofiles (login,password,email,bio) Values(?,?,?,'')");
+        PreparedStatement ps = session.prepare("insert into userprofiles (login, password, email) Values(?,?,?)");
        
         BoundStatement boundStatement = new BoundStatement(ps);
-        session.execute( // this is where the query is executed
-                boundStatement.bind( // here you are binding the 'boundStatement'
-                        username,EncodedPassword));
+        session.execute(boundStatement.bind(username, EncodedPassword, email));
         //We are assuming this always works.  Also a transaction would be good here !
         
         return true;
@@ -80,7 +87,7 @@ public class User {
     
     public boolean UpdateProfile(String firstname, String lastname, String bio, String username) {
         Session session = cluster.connect("instadom");
-        PreparedStatement ps = session.prepare("UPDATE userprofiles SET first_name = ?, last_name = ?, bio= ? WHERE login = ?;");
+        PreparedStatement ps = session.prepare("UPDATE userprofiles SET first_name = ?, last_name = ?, bio = ? WHERE login = ?;");
         BoundStatement boundStatement = new BoundStatement(ps);
         session.execute(boundStatement.bind(firstname, lastname, bio, username));
         return true;
