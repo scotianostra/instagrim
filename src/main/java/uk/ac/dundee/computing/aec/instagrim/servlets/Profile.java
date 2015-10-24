@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 import uk.ac.dundee.computing.aec.instagrim.models.User;
-import uk.ac.dundee.computing.aec.instagrim.stores.UserProfile;
+import uk.ac.dundee.computing.aec.instagrim.stores.*;
 
 /**
  *
@@ -35,28 +35,18 @@ public class Profile extends HttpServlet {
         cluster = CassandraHosts.getCluster();
     }
     
-   /* @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-       
-    }*/
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
         String bio = request.getParameter("bio");
+        
+        HttpSession session=request.getSession();
+        LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
+        
         String username = request.getParameter("username");
-                
+        username=lg.getUsername();                
        
         User us = new User();
         us.setCluster(cluster);
