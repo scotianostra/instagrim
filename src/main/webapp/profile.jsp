@@ -80,7 +80,7 @@
            
            <div class="text-center centre-div col-md-4">
                
-               <h1>Edit your Profile</h1>
+               <h1>You have not completed a profile</h1> 
                
            </div>
            
@@ -92,7 +92,30 @@
                     
                %>
                
-                <h1>You have not completed a profile</h1> 
+                <div class="col-md-4 border centre-div">
+        
+            <h2 class="text-center">Edit Profile</h2>
+            <form method="POST"  action="Profile">
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" class="form-control" name="first_name" placeholder="Name">
+                 </div>
+                
+                 <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" class="form-control" name="last_name" placeholder="Last Name">
+                 </div>
+                <div class="form-group">
+                    <label>Mini Bio</label>
+                    <input type="text" class="form-control" name="bio" placeholder="Mini Bio">
+                </div>
+                <div class="text-center">
+                <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+            
+            </div>
+               
                 <%
                 }   else {
                 %>
@@ -102,7 +125,7 @@
                 
                 
                 <img src="/InstaDom/Image/<%=up.getUUID()%>" class="profile-photo img-circle show-in-modal"/>
-                <h4 class="text-white text-center name" id="usrName"><%=lg.getUsername()%></h4>                        
+                <h4 class="text-center" id="usrName"><%=lg.getUsername()%></h4>                        
                 <hr class="name-separator">
            
                 <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="Image">
@@ -116,41 +139,29 @@
                 </form>
            </div>
            
-           <div>
-                <form class="" method="POST">                    
+            <div class="col-md-4 border centre-div">
+        
+            <h2 class="text-center">Edit Profile</h2>
+            <form method="POST"  action="Login">
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" class="form-control" name="first_name" placeholder="Name">
+                 </div>
                 
-                    <div class="input-group" style="display:table;">
-                        First Name: <input class="form-control" autocomplete="off" autofocus="autofocus" type="text" id="inptFirstName" value="<%= up.getFirstname()%>">
-                        <span class="input-group-addon" style="width:1%;">
-                        <span class=""></span>
-                        </span>
-                    </div>
-                        
-                        <br/>
-                        
-                    <div class="input-group" style="display:table;">
-                        Last Name: <input class="form-control"  autofocus="autofocus" type="text" id="inptLastName" value="<%= up.getLastname()%>">
-                        <span class="input-group-addon" style="width:1%;">
-                        <span class=""></span>
-                        </span>
-                    </div>
-                        
-                        <br/>
-                        
-                    <div class="input-group" style="display:table;">
-                        Email: <input class="form-control" data-validate="required"  autofocus="autofocus" type="email" id="inptEmail" value="<%= up.getEmail()%>">
-                        <span class="input-group-addon" style="width:1%;">
-                        <span class=""></span>
-                        </span>
-                    </div>  
-                        
-                        <br/>
-                        
-                    <div class="pull-right">
-                        <button type='button' class='btn btn-finish btn-fill btn-sky btn-wd btn-sm' id="btnUpdate">Finish</button>
-                    </div>
-               
-                </form>
+                 <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" class="form-control" name="last_name" placeholder="Password">
+                 </div>
+                <div class="form-group">
+                    <label>Mini Bio</label>
+                    <input type="text" class="form-control" name="bio" placeholder="Password">
+                </div>
+                <div class="text-center">
+                <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+            
+            </div>
                         
                
                 <%

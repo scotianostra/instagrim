@@ -47,6 +47,7 @@ public final class Keyspaces {
                     + "      first_name text,\n"
                     + "      last_name text,\n"
                     + "      email set<text>,\n"
+                    + "      bio text,\n"
                     + "      addresses  map<text, frozen <address>>\n"
                     + "      profilepic uuid,\n"
                     + "      picid uuid,\n"

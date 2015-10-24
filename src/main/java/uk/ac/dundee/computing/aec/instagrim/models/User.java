@@ -82,7 +82,7 @@ public class User {
         Session session = cluster.connect("instadom");
         PreparedStatement ps = session.prepare("UPDATE userprofiles SET first_name = ?, last_name = ?, bio= ? WHERE login = ?;");
         BoundStatement boundStatement = new BoundStatement(ps);
-        session.execute(boundStatement.bind(firstname, lastname, bio));
+        session.execute(boundStatement.bind(firstname, lastname, bio, username));
         return true;
     }
     
