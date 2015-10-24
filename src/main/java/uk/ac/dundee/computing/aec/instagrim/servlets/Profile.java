@@ -35,6 +35,20 @@ public class Profile extends HttpServlet {
         cluster = CassandraHosts.getCluster();
     }
     
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        HttpSession session = request.getSession();
+        String usname = (String) session.getAttribute("username"); 
+        User us = new User();
+        us.setCluster(cluster);
+        UserProfile up = (UserProfile) session.getAttribute("UserProfile");
+        up = us.getUserInfo(usname);
+        request.setAttribute("username", usname);
+        request.setAttribute("UserInfo", up);
+        System.out.println("uuid:NNNN " + up.getUUID());
+    }
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -45,12 +59,15 @@ public class Profile extends HttpServlet {
         HttpSession session=request.getSession();
         LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
         
-        String username = request.getParameter("username");
-        username=lg.getUsername();                
+        String username =lg.getUsername();     
+        
+        
        
         User us = new User();
         us.setCluster(cluster);
         us.UpdateProfile(firstname, lastname, bio, username);
+        
+        response.sendRedirect("/InstaDom/Images/" + username);
     }
 
     /**

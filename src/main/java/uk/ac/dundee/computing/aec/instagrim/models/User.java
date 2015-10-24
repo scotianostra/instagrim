@@ -93,6 +93,43 @@ public class User {
         return true;
     }
     
+    public UserProfile getUserInfo(String username) {
+
+        UserProfile data = new UserProfile();
+        Session session = cluster.connect("instadom");
+        PreparedStatement ps = session.prepare("select * from userprofiles where login =?");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+
+        rs = session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        username));
+
+        if (rs.isExhausted()) {
+
+            System.out.println("No profile found");
+            data.setFirstname("");
+            data.setLastname("");
+            data.setEmail("");
+            data.setBio("");
+            data.setUUID(null);
+
+        } else {
+
+            for (Row row : rs) {
+
+                data.setFirstname(row.getString("first_name"));
+                data.setLastname(row.getString("last_name"));
+                data.setEmail(row.getString("email"));
+                data.setBio(row.getString("bio"));
+                data.setUUID(row.getUUID("profilepic"));
+
+            }
+        }
+
+        return data;
+    }
+    
        public void setCluster(Cluster cluster) {
         this.cluster = cluster;
     }

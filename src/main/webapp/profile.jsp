@@ -29,7 +29,7 @@
     </head>
     
    <body>
-         <%UserProfile up = (UserProfile) request.getAttribute("userProfile"); %>
+         <%UserProfile up = (UserProfile) session.getAttribute("UserProfile"); %>
         
         <nav class="navbar">
             <ul>
@@ -80,7 +80,7 @@
                                
            
                
-               <%
+             <%--  <%
                         
                         if (up == null) {                      
                     
@@ -116,17 +116,23 @@
             
             </div>
                
-                <%
+               /* <%
                 }   else {
-                %>
+                %>*/
                             
-                            }
+                            } --%>
+                            
+                <div class="text-center centre-div col-md-5">
+               
+                    <h1>Edit your profile</h1> 
+               
+                </div>
                 
             <div class="col-md-3 border centre-div">
                 
-                <img src="/InstaDom/Image/<%=up.getUUID()%>" class="profile-photo img-circle show-in-modal"/>
+                <%--<img src="/InstaDom/Image/<%=up.getUUID()%>" class="profile-photo img-circle show-in-modal"/>
                 <h4 class="text-center" id="usrName"><%=lg.getUsername()%></h4>                        
-                <hr class="name-separator">
+                <hr class="name-separator">--%>
            
                 <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="Image">
                     <h4>Upload a profile picture</h4>
@@ -142,7 +148,7 @@
             <div class="col-md-3 border centre-div">
         
             <h2 class="text-center">Edit Profile</h2>
-            <form method="POST"  action="Login">
+            <form method="POST"  action="Profile">
                 <div class="form-group">
                     <label>First Name</label>
                     <input type="text" class="form-control" name="first_name" placeholder="<%= up.getFirstname()%>">
@@ -164,9 +170,9 @@
             </div>
                         
                
-                <%
+                <%--
                     }
-                %>
+                --%>
            </div>
                
                
