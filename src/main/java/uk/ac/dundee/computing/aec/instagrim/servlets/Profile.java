@@ -54,13 +54,13 @@ public class Profile extends HttpServlet {
             throws ServletException, IOException {
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
-        String email = request.getParameter("email"); 
         String bio = request.getParameter("bio");
+        String username = request.getParameter("username");
                 
        
         User us = new User();
         us.setCluster(cluster);
-        us.UpdateUser(firstname, lastname, email, bio);
+        us.UpdateProfile(firstname, lastname, bio, username);
     }
 
     /**
