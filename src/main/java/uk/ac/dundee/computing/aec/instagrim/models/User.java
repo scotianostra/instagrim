@@ -37,7 +37,7 @@ public class User {
             return false;
         }
         Session session = cluster.connect("instadom");
-        PreparedStatement ps = session.prepare("insert into userprofiles (login,password,email) Values(?,?,?)");
+        PreparedStatement ps = session.prepare("insert into userprofiles (login,password,email,bio) Values(?,?,?,'')");
        
         BoundStatement boundStatement = new BoundStatement(ps);
         session.execute( // this is where the query is executed
@@ -78,11 +78,11 @@ public class User {
         return false;  
     }
     
-    public boolean UpdateUser(String firstname, String lastname, String email, String username) {
+    public boolean UpdateProfile(String firstname, String lastname, String bio, String username) {
         Session session = cluster.connect("instadom");
-        PreparedStatement ps = session.prepare("UPDATE userprofiles SET first_name = ?, last_name = ?, email= ? WHERE login = ?;");
+        PreparedStatement ps = session.prepare("UPDATE userprofiles SET first_name = ?, last_name = ?, bio= ? WHERE login = ?;");
         BoundStatement boundStatement = new BoundStatement(ps);
-        session.execute(boundStatement.bind(firstname, lastname, email, username));
+        session.execute(boundStatement.bind(firstname, lastname, bio));
         return true;
     }
     
