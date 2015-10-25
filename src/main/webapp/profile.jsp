@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : UsersPics
     Created on : Sep 24, 2014, 2:52:48 PM
     Author     : Administrator
@@ -29,7 +29,7 @@
     </head>
     
    <body>
-         <%UserProfile up = (UserProfile)request.getAttribute("UserProfile"); %>
+         <%UserProfile profile = (UserProfile)request.getAttribute("UserProfile"); %>
         
         <nav class="navbar">
             <ul>
@@ -59,8 +59,8 @@
                     %>
 
                     <a class="navbar-status" href="/InstaDom/Images/<%=lg.getUsername()%>"><%=UserName%></a>
-                    <a class="navbar-status" href="/InstaDom/upload.jsp">Add Pic</a>
-                    <a class="navbar-status" href="/InstaDom/profile.jsp">Profile</a>
+                    <a class="navbar-status" href="/InstaDom/Upload">Add Pic</a>
+                    <a class="navbar-status" href="/InstaDom/Profile">Profile</a>
                     <a class="navbar-status" href="/InstaDom/Logout">Log Out</a>
                     <%}
                             }else{
@@ -82,7 +82,7 @@
                
                <%
                         
-                        if (up.getFirstname() == "Jim") {                      
+                        if (profile.getFirstname() == "") {                      
                     
                %>
                
@@ -122,6 +122,7 @@
                             
                             } 
                             
+                            
                 <div class="text-center centre-div col-md-5">
                
                     <h1>Edit your profile</h1> 
@@ -151,16 +152,16 @@
             <form method="POST"  action="Profile">
                 <div class="form-group">
                     <label>First Name</label>
-                    <input type="text" class="form-control" name="first_name" placeholder="<%= up.getFirstname()%>">
+                    <input type="text" class="form-control" name="first_name" placeholder="<%= profile.getFirstname()%>">
                  </div>
                 
                  <div class="form-group">
                     <label>Last Name</label>
-                    <input type="text" class="form-control" name="last_name" placeholder="<%= up.getLastname()%>">
+                    <input type="text" class="form-control" name="last_name" placeholder="<%= profile.getLastname()%>">
                  </div>
                 <div class="form-group">
                     <label>Mini Bio</label>
-                    <input type="text" class="form-control" name="bio" placeholder="<%= up.getBio()%>">
+                    <input type="text" class="form-control" name="bio" placeholder="<%= profile.getBio()%>">
                 </div>
                 <div class="text-center">
                 <button type="submit" class="btn btn-primary">Update</button>

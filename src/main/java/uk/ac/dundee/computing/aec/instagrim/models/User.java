@@ -90,6 +90,7 @@ public class User {
         PreparedStatement ps = session.prepare("UPDATE userprofiles SET first_name = ?, last_name = ?, bio = ? WHERE login = ?;");
         BoundStatement boundStatement = new BoundStatement(ps);
         session.execute(boundStatement.bind(firstname, lastname, bio, username));
+        System.out.println(firstname + " " + lastname + " " + bio + " " + username);
         return true;
     }
     
@@ -97,8 +98,11 @@ public class User {
 
         UserProfile data = new UserProfile();
         Session session = cluster.connect("instadom");
-        PreparedStatement ps = session.prepare("select * from userprofiles where login =?");
+        PreparedStatement ps = session.prepare("select first_name, last_name, email, bio, profilepic from userprofiles where login =?");
         ResultSet rs = null;
+        
+        System.out.println("Work mother fucker!");
+        
         BoundStatement boundStatement = new BoundStatement(ps);
 
         rs = session.execute( // this is where the query is executed
@@ -126,6 +130,8 @@ public class User {
 
             }
         }
+        
+        System.out.println(data.getFirstname() + " " + data.getLastname() + " " + data.getEmail() + data.getBio() + " " + data.getUsername());
 
         return data;
     }
