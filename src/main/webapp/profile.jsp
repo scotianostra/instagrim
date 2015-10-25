@@ -119,9 +119,7 @@
                 <%
                 }   else {
                 %>
-                            
-                            } 
-                            
+                                                        
                             
                 <div class="text-center centre-div col-md-5">
                
@@ -129,35 +127,39 @@
                
                 </div>
                 
-            <div class="col-md-3 border centre-div">
+            <div class="col col-md-4 border">
                 
                 <%--<img src="/InstaDom/Image/<%=up.getUUID()%>" class="profile-photo img-circle show-in-modal"/>
                 <h4 class="text-center" id="usrName"><%=lg.getUsername()%></h4>                        
                 <hr class="name-separator">--%>
+            </div>
+            
+            <div class="col col-md-4 border">
            
-                <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="Image">
+                <form method="POST" enctype="multipart/form-data" action="Image">
                     <h4>Upload a profile picture</h4>
                 
                     <div class="form-group">
                       <input type="file" name="upfile">
                      </div>
                 
-                     <input class="btn btn-primary pull-right" type="submit" value="Press">
+                     <input class="btn btn-primary" type="submit" value="Upload">
                 </form>
+            </div>
            
            
-            <div class="col-md-3 border centre-div">
+            <div class="col col-md-4 border">
         
             <h2 class="text-center">Edit Profile</h2>
             <form method="POST"  action="Profile">
                 <div class="form-group">
                     <label>First Name</label>
-                    <input type="text" class="form-control" name="first_name" placeholder="<%= profile.getFirstname()%>">
+                    <input type="text" class="form-control" name="firstname" placeholder="<%= profile.getFirstname()%>">
                  </div>
                 
                  <div class="form-group">
                     <label>Last Name</label>
-                    <input type="text" class="form-control" name="last_name" placeholder="<%= profile.getLastname()%>">
+                    <input type="text" class="form-control" name="lastname" placeholder="<%= profile.getLastname()%>">
                  </div>
                 <div class="form-group">
                     <label>Mini Bio</label>
@@ -178,7 +180,7 @@
                
                
                
-           </div>
+           
            
        
            
