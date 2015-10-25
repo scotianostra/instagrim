@@ -38,8 +38,14 @@ public class Profile extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        System.out.println("Work mother fucker!");
+
+        
+        
         HttpSession session = request.getSession();
-        String usname = (String) session.getAttribute("username"); 
+        LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
+        String usname = lg.getUsername();
+        System.out.println("username " + usname);
         
         User us = new User();
         us.setCluster(cluster);
@@ -48,9 +54,15 @@ public class Profile extends HttpServlet {
         UserProfile up = us.getUserProfile(usname);
         
         request.setAttribute("username", usname);
-        request.setAttribute("UserInfo", up);
+        request.setAttribute("UserProfile", up);
+        System.out.println("Fname " + up.getFirstname());
+        System.out.println("LName " + up.getLastname());
         System.out.println("uuid:NNNN " + up.getUUID());
         System.out.println("Profile data " + up.getBio());
+        
+        RequestDispatcher rd = request.getRequestDispatcher("profile.jsp");
+        
+        rd.forward(request, response);
     }
     
     @Override
