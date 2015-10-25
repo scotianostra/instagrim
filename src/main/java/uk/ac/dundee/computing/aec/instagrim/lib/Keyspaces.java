@@ -48,7 +48,6 @@ public final class Keyspaces {
                     + "      last_name text,\n"
                     + "      email text,\n"
                     + "      bio text,\n"
-                    + "      profilepic uuid,\n"
                     + "      picid uuid,\n"
                     + "  );";
             String CreateFollowing = "CREATE TABLE if not exists instadom.following (\n"

@@ -103,3 +103,27 @@ nav {
      margin-left: auto;
      margin-right: auto;
 }
+.profile-photo{
+    height: 150px;
+    width: 150px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.border1 {
+    border:1px solid #000; 
+}
+.profile-box-pic {
+    margin-bottom: 50px;
+    margin-top: 20px;
+}
+.profile-box {
+    margin-bottom: 50px;
+    margin-top: 20px;
+   padding-left: 45px;
+}
+.v-center {
+    
+    vertical-align: middle;
+    float: none;
+}

@@ -26,6 +26,8 @@
     
    <body>
        
+       <%UserProfile profile = (UserProfile)request.getAttribute("UserProfile"); %>
+       
         <nav class="navbar">
             <ul>
             <div class="navbar-brand text-center col-md-4">
@@ -74,12 +76,37 @@
        <div class="container">
            
           
-       
+      <div class="col-md-4 profile-box-pic">
+           
+            <%
+            if (profile.getUUID() == null) {
+                %>
+        <p>No profile picture uploaded</p>
+        <%}
+             else
+        {%>  
+                 
+            <img src="/InstaDom/Image/<%= profile.getUUID()%>" class="profile-photo img-circle"/>                
+                      
+         
+         
+        <%
+         }
+         %>
+           
+            </div>
        
             
-       
+         <div class="col-md-8 profile-box">
+             
+             <h2 class=""><%= profile.getUsername()%></h2>
+             <h4><%= profile.getFirstname()%></h4>
+             <h4><%= profile.getLastname()%></h4>
+             <h4><%= profile.getBio()%></h4>
+             
+         </div>
         
-            <h1>Your Pics</h1>
+            
         <%
             java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
             if (lsPics == null) {

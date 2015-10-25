@@ -25,8 +25,10 @@ import org.apache.commons.fileupload.util.Streams;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 import uk.ac.dundee.computing.aec.instagrim.models.PicModel;
+import uk.ac.dundee.computing.aec.instagrim.models.User;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
+import uk.ac.dundee.computing.aec.instagrim.stores.UserProfile;
 
 /**
  * Servlet implementation class Image
@@ -36,7 +38,8 @@ import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
     "/Image/*",
     "/Thumb/*",
     "/Images",
-    "/Images/*"
+    "/Images/*",
+    "/ProfilePic"
 })
 @MultipartConfig
 
@@ -57,9 +60,9 @@ public class Image extends HttpServlet {
         CommandsMap.put("Image", 1);
         CommandsMap.put("Images", 2);
         CommandsMap.put("Thumb", 3);
-
+        
     }
-
+    @Override
     public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
@@ -69,8 +72,23 @@ public class Image extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      * response)
      */
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
+        
+        HttpSession session = request.getSession();
+        LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
+        String usname = lg.getUsername();
+        System.out.println("username " + usname);
+        
+        User us = new User();
+        us.setCluster(cluster);
+        
+        UserProfile up = us.getUserProfile(usname);
+        
+        request.setAttribute("username", usname);
+        request.setAttribute("UserProfile", up);
+        
         String args[] = Convertors.SplitRequestPath(request);
         int command;
         try {
@@ -92,6 +110,8 @@ public class Image extends HttpServlet {
             default:
                 error("Bad Operator", response);
         }
+        
+        
     }
 
     private void DisplayImageList(String User, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -124,11 +144,13 @@ public class Image extends HttpServlet {
         }
         out.close();
     }
-
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         String pathParts[] = Convertors.SplitRequestPath(request);
+        System.out.println("request path " + pathParts[1]);
         
+                
         for (Part part : request.getParts()) {
             System.out.println("Part Name " + part.getName());
 
@@ -149,10 +171,11 @@ public class Image extends HttpServlet {
                 System.out.println("Length : " + b.length);
                 PicModel tm = new PicModel();
                 tm.setCluster(cluster);
-                if (pathParts[1].equals("Profile")) {
+                if (pathParts[1].equals("ProfilePic")) {
                     tm.insertPic(b, type, filename, username, true);
                 } else {
-                    tm.insertPic(b, type, filename, username, false);
+                    tm.insertPic(b, type, filename, username, false);                   
+                    
                 }
 
                 is.close();

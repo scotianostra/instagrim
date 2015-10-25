@@ -98,7 +98,7 @@ public class User {
 
         UserProfile data = new UserProfile();
         Session session = cluster.connect("instadom");
-        PreparedStatement ps = session.prepare("select first_name, last_name, email, bio, profilepic from userprofiles where login =?");
+        PreparedStatement ps = session.prepare("select login, first_name, last_name, email, bio, picid from userprofiles where login =?");
         ResultSet rs = null;
         
         System.out.println("Work mother fucker!");
@@ -122,11 +122,12 @@ public class User {
 
             for (Row row : rs) {
 
+                data.setUsername(row.getString("login"));
                 data.setFirstname(row.getString("first_name"));
                 data.setLastname(row.getString("last_name"));
                 data.setEmail(row.getString("email"));
                 data.setBio(row.getString("bio"));
-                data.setUUID(row.getUUID("profilepic"));
+                data.setUUID(row.getUUID("picid"));
 
             }
         }

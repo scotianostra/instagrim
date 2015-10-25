@@ -33,7 +33,7 @@ import java.util.LinkedList;
 import javax.imageio.ImageIO;
 import static org.imgscalr.Scalr.*;
 import org.imgscalr.Scalr.Method;
-
+import java.util.UUID;
 import uk.ac.dundee.computing.aec.instagrim.lib.*;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 //import uk.ac.dundee.computing.aec.stores.TweetStore;
@@ -80,14 +80,17 @@ public class PicModel {
             Date DateAdded = new Date();
             session.execute(bsInsertPic.bind(picid, buffer, thumbbuf,processedbuf, user, DateAdded, length,thumblength,processedlength, type, name));
             session.execute(bsInsertPicToUser.bind(picid, user, DateAdded));
-            session.close();
+            
             
             
             if (profpic) {
-                PreparedStatement psInsertProfilePic = session.prepare("update userprofiles SET profilepic = ? where login = ?;");
-                BoundStatement bsInsertProfile = new BoundStatement(psInsertProfilePic);
-                session.execute(bsInsertProfile.bind(picid, user));
+                PreparedStatement profilePic = session.prepare("update userprofiles SET picid = ? where login = ?;");
+                BoundStatement insertProfile = new BoundStatement(profilePic);
+                session.execute(insertProfile.bind(picid, user));
+                System.out.println("id inserted into picid " + picid);
             }
+            
+            session.close();
 
         } catch (IOException ex) {
             System.out.println("Error --> " + ex);
@@ -218,6 +221,25 @@ public class PicModel {
 
         return p;
 
+    }
+    
+    public UUID getProfilePic(String username) {
+        
+        UUID profile = null;
+        Session session = cluster.connect("instadom");
+        PreparedStatement ps = session.prepare("select picid from userprofiles where login =?");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs = session.execute(boundStatement.bind(username));
+
+        if (rs.isExhausted()) {
+            System.out.println("Nothing returned");
+            return null;
+        } else {
+            Row row = rs.one();
+            profile = row.getUUID("picid");
+        }
+        return profile;
     }
 
 }

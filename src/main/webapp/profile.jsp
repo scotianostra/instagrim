@@ -82,7 +82,7 @@
                
                <%
                         
-                        if (profile.getFirstname() == "") {                      
+                        if (profile.getFirstname() == null) {                      
                     
                %>
                
@@ -131,20 +131,20 @@
             
             <div class="col-md-offset-1 col-md-5 border">
                 
-                <img src="/InstaDom/Image/<%= profile.getUUID()%>" class="profile-photo img-circle show-in-modal"/>
+                <img src="/InstaDom/Image/<%= profile.getUUID()%>" class="profile-photo img-circle"/>
                 
                 
                 <h2 class="text-center">Edit Profile Picture</h2>
-                <form method="POST" enctype="multipart/form-data" action="Image">
-                    <div class="form-group">
-                        <label>Upload a profile picture</label>
-                        <input type="file" name="upfile">
+                <form method="POST" enctype="multipart/form-data" action="ProfilePic">
+                    <div class="form-group block-center">                        
+                        <input class="border1" type="file" name="upfile">
                     </div>
                     <div class="text-center">                                                               
                         <input class="btn btn-primary" type="submit" value="Upload">
                     </div>
                 </form>
             </div>
+            
            
            
             <div class="col-md-offset-1 col-md-5 border">
