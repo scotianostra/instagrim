@@ -127,30 +127,29 @@
                
                 </div>
                 
-            <div class="col col-md-4 border">
                 
-                <%--<img src="/InstaDom/Image/<%=up.getUUID()%>" class="profile-photo img-circle show-in-modal"/>
-                <h4 class="text-center" id="usrName"><%=lg.getUsername()%></h4>                        
-                <hr class="name-separator">--%>
-            </div>
             
-            <div class="col col-md-4 border">
-           
+            <div class="col-md-offset-1 col-md-5 border">
+                
+                <img src="/InstaDom/Image/<%= profile.getUUID()%>" class="profile-photo img-circle show-in-modal"/>
+                
+                
+                <h2 class="text-center">Edit Profile Picture</h2>
                 <form method="POST" enctype="multipart/form-data" action="Image">
-                    <h4>Upload a profile picture</h4>
-                
                     <div class="form-group">
-                      <input type="file" name="upfile">
-                     </div>
-                
-                     <input class="btn btn-primary" type="submit" value="Upload">
+                        <label>Upload a profile picture</label>
+                        <input type="file" name="upfile">
+                    </div>
+                    <div class="text-center">                                                               
+                        <input class="btn btn-primary" type="submit" value="Upload">
+                    </div>
                 </form>
             </div>
            
            
-            <div class="col col-md-4 border">
+            <div class="col-md-offset-1 col-md-5 border">
         
-            <h2 class="text-center">Edit Profile</h2>
+            <h2 class="text-center">Edit Profile Details</h2>
             <form method="POST"  action="Profile">
                 <div class="form-group">
                     <label>First Name</label>
@@ -171,6 +170,8 @@
             </form>
             
             </div>
+                
+            
                         
                
                 <%

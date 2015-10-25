@@ -126,6 +126,9 @@ public class Image extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        String pathParts[] = Convertors.SplitRequestPath(request);
+        
         for (Part part : request.getParts()) {
             System.out.println("Part Name " + part.getName());
 
@@ -146,7 +149,11 @@ public class Image extends HttpServlet {
                 System.out.println("Length : " + b.length);
                 PicModel tm = new PicModel();
                 tm.setCluster(cluster);
-                tm.insertPic(b, type, filename, username);
+                if (pathParts[1].equals("Profile")) {
+                    tm.insertPic(b, type, filename, username, true);
+                } else {
+                    tm.insertPic(b, type, filename, username, false);
+                }
 
                 is.close();
             }
