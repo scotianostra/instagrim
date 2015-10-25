@@ -93,7 +93,7 @@ public class User {
         return true;
     }
     
-    public UserProfile getUserInfo(String username) {
+    public UserProfile getUserProfile(String username) {
 
         UserProfile data = new UserProfile();
         Session session = cluster.connect("instadom");

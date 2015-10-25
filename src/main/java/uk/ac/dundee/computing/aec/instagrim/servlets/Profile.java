@@ -34,19 +34,23 @@ public class Profile extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         cluster = CassandraHosts.getCluster();
     }
-    
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         HttpSession session = request.getSession();
         String usname = (String) session.getAttribute("username"); 
+        
         User us = new User();
         us.setCluster(cluster);
-        UserProfile up = (UserProfile) session.getAttribute("UserProfile");
-        up = us.getUserInfo(usname);
+        
+        //UserProfile up = (UserProfile) session.getAttribute("UserProfile");
+        UserProfile up = us.getUserProfile(usname);
+        
         request.setAttribute("username", usname);
         request.setAttribute("UserInfo", up);
         System.out.println("uuid:NNNN " + up.getUUID());
+        System.out.println("Profile data " + up.getBio());
     }
     
     @Override

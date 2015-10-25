@@ -29,7 +29,7 @@
     </head>
     
    <body>
-         <%UserProfile up = (UserProfile) session.getAttribute("UserProfile"); %>
+         <%UserProfile up = (UserProfile)request.getAttribute("UserProfile"); %>
         
         <nav class="navbar">
             <ul>
@@ -80,9 +80,9 @@
                                
            
                
-             <%--  <%
+               <%
                         
-                        if (up == null) {                      
+                        if (up.getFirstname() == "Jim") {                      
                     
                %>
                
@@ -116,11 +116,11 @@
             
             </div>
                
-               /* <%
+                <%
                 }   else {
-                %>*/
+                %>
                             
-                            } --%>
+                            } 
                             
                 <div class="text-center centre-div col-md-5">
                
@@ -170,9 +170,9 @@
             </div>
                         
                
-                <%--
+                <%
                     }
-                --%>
+                %>
            </div>
                
                
