@@ -42,8 +42,8 @@ public class follow extends HttpServlet  {
             throws ServletException, IOException {
        
         String requestParts[] = Convertors.SplitRequestPath(request);
-        System.out.println("follow " + requestParts[2]);
-        System.out.println("request " + requestParts[3]);
+        System.out.println("follow path " + requestParts[2]);
+        System.out.println("request path " + requestParts[3]);
         String requestPath = requestParts[3];
         String follow = requestParts[2];
 
