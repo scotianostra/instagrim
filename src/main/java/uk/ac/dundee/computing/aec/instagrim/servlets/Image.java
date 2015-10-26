@@ -180,8 +180,7 @@ public class Image extends HttpServlet {
 
                 is.close();
             }
-            RequestDispatcher rd = request.getRequestDispatcher("/upload.jsp");
-             rd.forward(request, response);
+            response.sendRedirect("/InstaDom/Images/" + username);
         }
 
     }

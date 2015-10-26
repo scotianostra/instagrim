@@ -153,16 +153,16 @@
             <form method="POST"  action="Profile">
                 <div class="form-group">
                     <label>First Name</label>
-                    <input type="text" class="form-control" name="firstname" placeholder="<%= profile.getFirstname()%>">
+                    <input type="text" class="form-control" name="firstname" value="<%= profile.getFirstname()%>">
                  </div>
                 
                  <div class="form-group">
                     <label>Last Name</label>
-                    <input type="text" class="form-control" name="lastname" placeholder="<%= profile.getLastname()%>">
+                    <input type="text" class="form-control" name="lastname" value="<%= profile.getLastname()%>">
                  </div>
                 <div class="form-group">
                     <label>Mini Bio</label>
-                    <input type="text" class="form-control" name="bio" placeholder="<%= profile.getBio()%>">
+                    <input type="text" class="form-control" name="bio" value="<%= profile.getBio()%>">
                 </div>
                 <div class="text-center">
                 <button type="submit" class="btn btn-primary">Update</button>

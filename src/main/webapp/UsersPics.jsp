@@ -99,10 +99,29 @@
             
          <div class="col-md-8 profile-box">
              
-             <h2 class=""><%= profile.getUsername()%></h2>
-             <h4><%= profile.getFirstname()%></h4>
-             <h4><%= profile.getLastname()%></h4>
+             <h1 class="username-title"><%= profile.getUsername()%></h1>
+             <div class="align-names">
+             <h3 class=""><%= profile.getFirstname()%></h3>
+             </div>
+             <div class="align-names">
+             <h3 class=""><%= profile.getLastname()%></h3>
+             </div>
+             
+             <div class="align-names name-font">
              <h4><%= profile.getBio()%></h4>
+             </div>
+             <br>
+             <br>
+             <br>
+             <div class="align-stats">
+             <h4>Posts</h4>    
+             </div>
+             <div class="align-stats">
+             <h4>Followers</h4>    
+             </div>
+             <div class="align-stats">
+             <h4>Following</h4>    
+             </div>
              
          </div>
         
@@ -131,9 +150,7 @@
         %>
         
         <footer>
-            <ul>
-                <li class="footer"><a href="/InstaDom">Home</a></li>
-            </ul>
+            
         </footer>
        
    </div>

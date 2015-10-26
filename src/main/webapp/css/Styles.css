@@ -127,3 +127,20 @@ nav {
     vertical-align: middle;
     float: none;
 }
+.align-names {
+    float: left;
+    padding-right: 5px;
+}
+.align-stats {
+    float: left;
+    padding-right: 60px;
+}
+.name-font {
+    font-size: 14px;
+    font-family: 'Ariel', sans-serif;
+    padding-top: 15px;
+    padding-left: 5px;
+}
+.username-title {
+    
+}
