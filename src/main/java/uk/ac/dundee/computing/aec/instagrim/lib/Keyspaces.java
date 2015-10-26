@@ -51,9 +51,14 @@ public final class Keyspaces {
                     + "      picid uuid,\n"
                     + "  );";
             String CreateFollowing = "CREATE TABLE if not exists instadom.following (\n"
-                    + "      username text,\n"
+                    + "      login text,\n"
+                    + "      following text,\n"
+                    + "      PRIMARY KEY (login, following)\n"
+                    + "  );";
+            String CreateFollowers = "CREATE TABLE if not exists instadom.followers (\n"
+                    + "      login text,\n"
                     + "      follower text,\n"
-                    + "      PRIMARY KEY (username, follower)\n"
+                    + "      PRIMARY KEY (login, follower)\n"
                     + "  );";
             Session session = c.connect();
             try {

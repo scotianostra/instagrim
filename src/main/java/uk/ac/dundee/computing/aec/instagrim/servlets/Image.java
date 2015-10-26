@@ -76,18 +76,22 @@ public class Image extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
         
+        String pathParts[] = Convertors.SplitRequestPath(request);
+        System.out.println("profile path " + pathParts[2]);
+        String profilename = pathParts[2];
+        
         HttpSession session = request.getSession();
         LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
-        String usname = lg.getUsername();
-        System.out.println("username " + usname);
+        
         
         User us = new User();
         us.setCluster(cluster);
         
-        UserProfile up = us.getUserProfile(usname);
+        UserProfile up = us.getUserProfile(profilename);
         
-        request.setAttribute("username", usname);
+        
         request.setAttribute("UserProfile", up);
+        request.setAttribute("Profname", profilename);
         
         String args[] = Convertors.SplitRequestPath(request);
         int command;

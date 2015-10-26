@@ -27,7 +27,7 @@
    <body>
        
        <%UserProfile profile = (UserProfile)request.getAttribute("UserProfile"); %>
-       
+       <%int posts = 0;%>
         <nav class="navbar">
             <ul>
             <div class="navbar-brand text-center col-md-4">
@@ -98,8 +98,21 @@
        
             
          <div class="col-md-8 profile-box">
-             
+             <div>
              <h1 class="username-title"><%= profile.getUsername()%></h1>
+             </div>
+             <div class="">
+                 
+             <%
+                }
+                  if (lg.getlogedin()) {
+                      if
+            
+             %>
+                 
+             <button type = "submit" class = "btn btn-default">Follow</button>
+             </div>
+              
              <div class="align-names">
              <h3 class=""><%= profile.getFirstname()%></h3>
              </div>
@@ -114,7 +127,7 @@
              <br>
              <br>
              <div class="align-stats">
-             <h4>Posts</h4>    
+             <h4><%=posts%> Posts</h4>    
              </div>
              <div class="align-stats">
              <h4>Followers</h4>    
@@ -128,6 +141,7 @@
             
         <%
             java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
+            
             if (lsPics == null) {
         %>
         <p>No Pictures found</p>
@@ -137,6 +151,7 @@
             iterator = lsPics.iterator();
             while (iterator.hasNext()) {
                 Pic p = (Pic) iterator.next();
+                posts ++;
 
         %>
         <div class="col col-md-4 centre-img">
