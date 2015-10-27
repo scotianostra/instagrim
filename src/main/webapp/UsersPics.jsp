@@ -22,12 +22,26 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="/InstaDom/js/bootstrap.js"></script>
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+       <%-- <script>function submitMyForm(){ document.forms["Follow"].submit();}</script>--%>
     </head>
+    
+   <%-- <script>
+    $(document).on("submit", "#Follow", function() {
+    //var $form = $(this);
+
+    $.post($form.attr("action"), $form.serialize(), function(responseJson) {
+        // ...
+    });
+});
+</script>--%>
+
     
    <body>
        
-       <%UserProfile profile = (UserProfile)request.getAttribute("UserProfile"); %>
-       <%int posts = 0;%>
+       <%UserProfile profile = (UserProfile) request.getAttribute("UserProfile"); %>
+       
+      
         <nav class="navbar">
             <ul>
             <div class="navbar-brand text-center col-md-4">
@@ -35,7 +49,7 @@
             </div>
                 
             <div class="navbar-search text-center col-md-4">
-             <form class = "navbar-form" role = "search">
+                 <form class = "navbar-form" role = "search">
          
                  <div class = "form-group">
                  <input type = "text" class = "form-control" placeholder = "Search">
@@ -101,17 +115,50 @@
              <div>
              <h1 class="username-title"><%= profile.getUsername()%></h1>
              </div>
-             <div class="">
+             
                  
              <%
+                if (lg != null)  {
+                      if((lg.getProfileMatch() == 0) && (!(lg.getUsername().equals( profile.getUsername() )))) {
+                          
+                          %>
+                          <div>
+                              <form method="get" action="${pageContext.request.contextPath}/Follow">
+                                <button type="submit" class="btn btn-primary">Follow</button>  
+                              </form>
+                          </div>
+                          
+                          
+                          
+                           <%
+                    }
                 }
-                  if (lg.getlogedin()) {
-                      if
-            
-             %>
-                 
-             <button type = "submit" class = "btn btn-default">Follow</button>
-             </div>
+                      if (lg != null)  {
+                        if((lg.getProfileMatch() == 1) && (!(lg.getUsername().equals(profile.getUsername() )))) {
+                                %>
+                           <div> 
+                            <form method="POST"  id="Follow" action="UnFollow">
+                           <button type="submit" class ="btn btn-default">Un follow</button> 
+                            </form>  
+                           </div> 
+                           
+                          <%
+                        }
+                      }
+                        if (lg != null)  {
+                            if(lg.getUsername().equals( profile.getUsername()) ) {
+                                %>
+                           <div>  
+                           <a class="" href="/InstaDom/Profile">
+                           <button type = "submit" class = "btn btn-default">Edit Info</button>
+                           </a>
+                           </div> 
+                           <%
+                             }
+                        }
+                            %>                 
+                            
+             
               
              <div class="align-names">
              <h3 class=""><%= profile.getFirstname()%></h3>
@@ -123,20 +170,15 @@
              <div class="align-names name-font">
              <h4><%= profile.getBio()%></h4>
              </div>
-             <br>
-             <br>
-             <br>
-             <div class="align-stats">
-             <h4><%=posts%> Posts</h4>    
-             </div>
-             <div class="align-stats">
-             <h4>Followers</h4>    
-             </div>
-             <div class="align-stats">
-             <h4>Following</h4>    
-             </div>
              
+                      
          </div>
+             <br>
+             <br>
+             <br>
+             <br>
+             <br>
+             <br>
         
             
         <%
@@ -151,7 +193,8 @@
             iterator = lsPics.iterator();
             while (iterator.hasNext()) {
                 Pic p = (Pic) iterator.next();
-                posts ++;
+            
+               
 
         %>
         <div class="col col-md-4 centre-img">
@@ -173,3 +216,4 @@
        
     </body>
 </html>
+

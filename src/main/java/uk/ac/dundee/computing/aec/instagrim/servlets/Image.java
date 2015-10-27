@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.LinkedList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -83,15 +84,41 @@ public class Image extends HttpServlet {
         HttpSession session = request.getSession();
         LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
         
-        
         User us = new User();
         us.setCluster(cluster);
         
-        UserProfile up = us.getUserProfile(profilename);
         
+        
+        if (lg != null){
+            
+        
+        String username = lg.getUsername();
+        
+        
+        
+        LinkedList<String> followers = us.getFollowing(username);
+        
+        int match = 0;
+        
+        for (int i = 0; i < followers.size(); i++) {
+	            if((followers.get(i)).equals(username)){
+                        
+                        match++;
+                    }
+	        }
+        
+        
+        lg.setProfileMatch(match);
+        System.out.println("match int " + match);
+        //session.setAttribute("LoggedIn", lg);
+        
+        }
+        
+        UserProfile up = us.getUserProfile(profilename);
+        System.out.println("profilename " + profilename);
         
         request.setAttribute("UserProfile", up);
-        request.setAttribute("Profname", profilename);
+        //request.setAttribute("Profname", profilename);
         
         String args[] = Convertors.SplitRequestPath(request);
         int command;

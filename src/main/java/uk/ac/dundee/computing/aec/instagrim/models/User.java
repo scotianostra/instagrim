@@ -172,8 +172,8 @@ public class User {
         } else {
 
             for (Row row : rs) {
-                String u = row.getString("following");
-                following.add(u);
+                String string = row.getString("following");
+                following.add(string);
             }
         }       
         
@@ -193,6 +193,10 @@ public class User {
         BoundStatement boundStatement2 = new BoundStatement(ps2);
         session.execute(boundStatement2.bind(unFollowee, currentUser));
         
+    }
+    
+     public void setCluster(Cluster cluster) {
+        this.cluster = cluster;
     }
 
     

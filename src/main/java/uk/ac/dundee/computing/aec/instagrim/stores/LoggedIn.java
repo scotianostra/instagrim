@@ -12,6 +12,7 @@ package uk.ac.dundee.computing.aec.instagrim.stores;
  */
 public class LoggedIn {
     boolean logedin=false;
+    int profileMatch = 0;
     String Username=null;
     public void LogedIn(){
         
@@ -22,6 +23,12 @@ public class LoggedIn {
     }
     public String getUsername(){
         return Username;
+    }
+    public void setProfileMatch(int profileMatch){
+        this.profileMatch=profileMatch;
+    }
+    public int getProfileMatch(){
+        return profileMatch;
     }
     public void setLogedin(){
         logedin=true;

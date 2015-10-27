@@ -19,6 +19,7 @@ public class UserProfile {
     private UUID profilepic = null;
     private String bio = null;
     private String email = null;
+    
 
     public void UserProfile() {
 
