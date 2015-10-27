@@ -27,7 +27,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.*;
  *
  * @author Dominic
  */
-@WebServlet(name = "Follow", urlPatterns = {"/Follow", "/UnFollow"})
+@WebServlet( urlPatterns = {"/Follow", "/UnFollow"})
 public class follow extends HttpServlet  {
     
     Cluster cluster=null;
@@ -42,14 +42,22 @@ public class follow extends HttpServlet  {
             throws ServletException, IOException {
        
         String requestParts[] = Convertors.SplitRequestPath(request);
-        System.out.println("follow path " + requestParts[2]);
-        System.out.println("request path " + requestParts[3]);
-        String requestPath = requestParts[3];
-        String follow = requestParts[2];
+        System.out.println("follow path " + requestParts[1]);
+        System.out.println("request path " + requestParts[0]);
+       
+        String follow = requestParts[1];
+        String requestPath = requestParts[0];
 
         HttpSession session = request.getSession();
         LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
         String currentUser = lg.getUsername();
+        System.out.println("Current User " + currentUser);
+        
+        UserProfile profile = (UserProfile)session.getAttribute("UserProfile");
+        String toFollow = profile.getUsername();
+        
+        
+        System.out.println("To Follow " + toFollow);
          
         User us = new User();
         us.setCluster(cluster);
@@ -63,6 +71,8 @@ public class follow extends HttpServlet  {
 
             us.unFollow(currentUser, follow);
         }
+        
+        
         
     }
     
