@@ -63,6 +63,7 @@ public class Login extends HttpServlet {
             //request.setAttribute("LoggedIn", lg);
             
             session.setAttribute("LoggedIn", lg);
+            session.setAttribute("param", "Search for user");
             System.out.println("Session in servlet "+session);
             response.sendRedirect("/InstaDom/Images/" + username);
             

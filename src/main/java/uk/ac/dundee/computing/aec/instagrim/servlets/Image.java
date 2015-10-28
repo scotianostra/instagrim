@@ -175,6 +175,32 @@ public class Image extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
+        String hiddenParam = request.getParameter("hiddenParamater");
+        
+        if(hiddenParam.equals("search")){
+        //search was posted
+            
+        HttpSession session = request.getSession();
+        String username = (String) request.getParameter("username");
+        
+        
+        User us = new User();
+        us.setCluster(cluster);
+        LinkedList<String> users = us.getUsers();
+                
+        System.out.println("searched for username: " + username);
+
+        //if (username == null) {
+            //response.sendRedirect("/Instagrim/Explore/");
+        if (users.contains(username)) {
+            response.sendRedirect("/Instagrim/Images/" + username);
+        }    
+            
+        }
+        else if(hiddenParam.equals("image")){
+         //image uploaded
+
+        
         String pathParts[] = Convertors.SplitRequestPath(request);
         System.out.println("request path " + pathParts[1]);
         
@@ -209,6 +235,7 @@ public class Image extends HttpServlet {
                 is.close();
             }
             response.sendRedirect("/InstaDom/Images/" + username);
+        }
         }
 
     }

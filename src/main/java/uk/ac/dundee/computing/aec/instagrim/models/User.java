@@ -198,6 +198,31 @@ public class User {
         */
     }
     
+    public LinkedList<String> getUsers() {
+
+        LinkedList<String> users = new LinkedList<>();
+        Session session = cluster.connect("instadom");
+        PreparedStatement ps = session.prepare("select login from userprofiles");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs = session.execute(boundStatement.bind());
+
+        if (rs.isExhausted()) {
+
+            System.out.println("No profile found");
+            return null;
+
+        } else {
+
+            for (Row row : rs) {
+                String string = row.getString("login");
+                users.add(string);
+            }
+        }
+
+        return users;
+    }
+    
      public void setCluster(Cluster cluster) {
         this.cluster = cluster;
     }

@@ -41,6 +41,7 @@
        
        <%UserProfile profile = (UserProfile) request.getAttribute("UserProfile"); %>
        <%session.setAttribute("profileName", (profile.getUsername()));%>
+       <
       
         <nav class="navbar">
             <ul>
@@ -49,11 +50,14 @@
             </div>
                 
             <div class="navbar-search text-center col-md-4">
-                 <form class = "navbar-form" role = "search">
-         
-                 <div class = "form-group">
-                 <input type = "text" class = "form-control" placeholder = "Search">
+                
+                 <form class="navbar-form" method="post" action= "Search">         
+                 <div class = "form-group">                    
+                     <input type="text" name="username" class="form-control" placeholder="${sessionScope.param}" required autofocus>
+                 
                  </div>
+                 <form>
+                 
                  <button type = "submit" class = "btn btn-default">Search</button>
          
              </form>    
