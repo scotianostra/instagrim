@@ -22,13 +22,15 @@ import com.datastax.driver.core.utils.Bytes;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-
+import java.util.Map;
+import java.util.TreeMap;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import javax.imageio.ImageIO;
 import static org.imgscalr.Scalr.*;
@@ -240,6 +242,47 @@ public class PicModel {
             profile = row.getUUID("picid");
         }
         return profile;
+    }
+    
+    public LinkedList<Pic> getHomePics(LinkedList<String> following) {
+
+        LinkedList<Pic> Pics = new LinkedList<>();
+        Map<Date, Pic> picsMap = new HashMap();
+        
+        Session session = cluster.connect("instadom");
+
+        for (String string : following) {
+
+            PreparedStatement ps = session.prepare("select picid, pic_added from userpiclist where user =?");
+            ResultSet rs = null;
+            BoundStatement boundStatement = new BoundStatement(ps);
+            rs = session.execute(boundStatement.bind(string));
+
+            if (rs.isExhausted()) {
+                System.out.println("No Images returned");
+            }
+            else {
+                for (Row row : rs) {
+                    Pic pic = new Pic();
+                    
+                    UUID UUID = row.getUUID("picid");
+                    pic.setUUID(UUID);                    
+                    pic.setFollower(string);                    
+                    String date = row.getDate("pic_added").toString();
+                    pic.setDate(date);
+                    
+                    picsMap.put(row.getDate("pic_added"), pic);
+                }
+            }
+        }
+
+        Map<Date, Pic> order = new TreeMap(picsMap).descendingMap();
+
+        for (Pic pi : order.values()) {
+            Pics.add(pi);
+        }
+
+        return Pics;
     }
 
 }

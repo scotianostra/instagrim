@@ -70,6 +70,10 @@ public class Image extends HttpServlet {
     }
 
     /**
+     * @param request
+     * @param response
+     * @throws javax.servlet.ServletException
+     * @throws java.io.IOException
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      * response)
      */
@@ -78,8 +82,9 @@ public class Image extends HttpServlet {
         // TODO Auto-generated method stub
         
         String pathParts[] = Convertors.SplitRequestPath(request);
-        System.out.println("profile path " + pathParts[2]);
+        System.out.println("Name from path " + pathParts[2]);
         String profilename = pathParts[2];
+        
         
         HttpSession session = request.getSession();
         LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
@@ -87,39 +92,30 @@ public class Image extends HttpServlet {
         User us = new User();
         us.setCluster(cluster);
         
-        
-        
+        UserProfile up = us.getUserProfile(profilename);
+        request.setAttribute("UserProfile", up);
+
+        System.out.println("profilename " + profilename); 
+               
         if (lg != null){
             
         
         String username = lg.getUsername();
+        System.out.println("Current User " + username);
+        
+        LinkedList<String> followers = us.getFollowing(username);      
+        System.out.println("Linked List of passed on followers: " + followers);
+        
+              
+        boolean isMatch = followers.contains(profilename);
+        System.out.println("Profile name checked against " + profilename);
+        System.out.println("is there a match " + isMatch);
         
         
-        
-        LinkedList<String> followers = us.getFollowing(username);
-        
-        int match = 0;
-        
-        for (int i = 0; i < followers.size(); i++) {
-	            if((followers.get(i)).equals(username)){
-                        
-                        match++;
-                    }
-	        }
-        
-        
-        lg.setProfileMatch(match);
-        System.out.println("match int " + match);
-        //session.setAttribute("LoggedIn", lg);
-        
-        }
-        
-        UserProfile up = us.getUserProfile(profilename);
-        System.out.println("profilename " + profilename);
-        
-        request.setAttribute("UserProfile", up);
-        //request.setAttribute("Profname", profilename);
-        
+        lg.setProfileMatch(isMatch);
+        System.out.println("Match set as " + lg.getProfileMatch());
+        }    
+                
         String args[] = Convertors.SplitRequestPath(request);
         int command;
         try {

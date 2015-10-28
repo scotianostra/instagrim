@@ -113,6 +113,14 @@ public final class Keyspaces {
                 System.out.println("Can't create following table " + et);
             }
             
+            System.out.println("" + CreateFollowers);
+            try {
+                SimpleStatement cqlQuery = new SimpleStatement(CreateFollowers);
+                session.execute(cqlQuery);
+            } catch (Exception et) {
+                System.out.println("Can't create following table " + et);
+            }
+            
             session.close();
 
         } catch (Exception et) {

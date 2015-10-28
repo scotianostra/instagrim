@@ -14,6 +14,8 @@ import java.nio.ByteBuffer;
  */
 public class Pic {
 
+    private String date;
+    private String follower;
     private ByteBuffer bImage = null;
     private int length;
     private String type;
@@ -50,6 +52,26 @@ public class Pic {
          
         byte image[] = Bytes.getArray(bImage);
         return image;
+    }
+    
+     public void setDate(String date) {
+
+        this.date = date;
+    }
+
+    public String getDate() {
+
+        return date;
+    }
+
+    public void setFollower(String follower) {
+
+        this.follower = follower;
+    }
+
+    public String getFollower() {
+
+        return follower;
     }
 
 }

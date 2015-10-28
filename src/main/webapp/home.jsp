@@ -25,18 +25,7 @@
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
        <%-- <script>function submitMyForm(){ document.forms["Follow"].submit();}</script>--%>
     </head>
-    
-   <%-- <script>
-    $(document).on("submit", "#Follow", function() {
-    //var $form = $(this);
-
-    $.post($form.attr("action"), $form.serialize(), function(responseJson) {
-        // ...
-    });
-});
-</script>--%>
-
-    
+        
    <body>
        
        <%UserProfile profile = (UserProfile) request.getAttribute("UserProfile"); %>
@@ -71,7 +60,7 @@
 
                     <a class="navbar-status" href="/InstaDom/Images/<%=lg.getUsername()%>"><%=UserName%></a>
                     <a class="navbar-status" href="/InstaDom/upload.jsp">Add Pic</a>
-                    <a class="navbar-status" href="/InstaDom/Home/<%=lg.getUsername()%>">Home</a> 
+                    <a class="navbar-status" href="/InstaDom/Profile">Profile</a> 
                     <a class="navbar-status" href="/InstaDom/Logout">Log Out</a>
                     <%}
                             }else{
@@ -176,44 +165,40 @@
              <br>
              <br>
              <br>
-             <br>
-             <br>
-             <br>
+             
         
             
-        <%
-            java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
-            
-            if (lsPics == null) {
-        %>
-        <p>No Pictures found</p>
-        <%
-        } else {
-            Iterator<Pic> iterator;
-            iterator = lsPics.iterator();
-            while (iterator.hasNext()) {
-                Pic p = (Pic) iterator.next();
-            
-               
+       <div class="col-md-8 text-center">
+                    
+                        <%
+                            java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
 
-        %>
-        <div class="col col-md-4 centre-img">
-        <a href="/InstaDom/Image/<%=p.getSUUID()%>" ><img  src="/InstaDom/Image/<%=p.getSUUID()%>"></a>
-        </div>
-        
-        <%
-        
-            }
-            }
-        %>
+                            if (lsPics == null) {
+                        %>
+                        <h1 class="text-center">No Pics found... :(</h1>
+                        <%
+                        } else {
+                            Iterator<Pic> iterator;
+                            iterator = lsPics.iterator();
+                            while (iterator.hasNext()) {
+                                Pic p = (Pic) iterator.next();
+                        %>
+                        <a href="/Instagrim/Image/<%=p.getSUUID()%>" ><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a>
+                        <p>Date: <%=p.getDate()%></p>
+                        <a class="login-title" href="/Instagrim/Images/<%=p.getFollower()%>">Uploaded by <%=p.getFollower()%></a>
+
+                        <%}
+                            }%>
         
         <footer>
             
         </footer>
        
-   </div>
+   
        
-       
+       </div> 
+                            
+       </div>
     </body>
 </html>
 

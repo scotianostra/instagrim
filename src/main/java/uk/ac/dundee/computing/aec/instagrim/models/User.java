@@ -133,24 +133,24 @@ public class User {
             }
         }
         
-        System.out.println(data.getFirstname() + " " + data.getLastname() + " " + data.getEmail() + data.getBio() + " " + data.getUsername());
+        System.out.println("Profile details " + data.getFirstname() + " " + data.getLastname() + " " + data.getEmail() + data.getBio() + " " + data.getUsername());
 
         return data;
     }
     
-   public void follow(String currentUser, String followee) {
+   public void follow(String currentUser, String toFollow) {
         
         Session session = cluster.connect("instadom");
         PreparedStatement ps1 = session.prepare("insert into following (login, following) Values(?,?)");
         
         BoundStatement boundStatement1 = new BoundStatement(ps1);
-        session.execute(boundStatement1.bind(currentUser, followee ));
-        
-        PreparedStatement ps2 = session.prepare("insert into followers (login, follower) values(?,?)");
+        session.execute(boundStatement1.bind(currentUser, toFollow ));
+        System.out.println("Added to database");
+        /*PreparedStatement ps2 = session.prepare("insert into followers (login, follower) values(?,?)");
         
         BoundStatement boundStatement2 = new BoundStatement(ps2);
-        session.execute(boundStatement2.bind(followee, currentUser));
-        
+        session.execute(boundStatement2.bind(toFollow, currentUser));
+        */
     }
    
    public LinkedList<String> getFollowing(String username) {
@@ -159,9 +159,10 @@ public class User {
         Session session = cluster.connect("instadom");
       
         PreparedStatement ps = session.prepare("select following from following where login =?");       
-        BoundStatement boundStatement = new BoundStatement(ps);
+        
         
         ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
         rs = session.execute(boundStatement.bind(username));
 
         if (rs.isExhausted()) {
@@ -176,23 +177,25 @@ public class User {
                 following.add(string);
             }
         }       
-        
+        System.out.println("Linked List all followers: " + following);
         return following;
         
     }
-    
-    public void unFollow(String currentUser, String unFollowee) {
+   
+    public void unFollow(String currentUser, String unFollow) {
         
         Session session = cluster.connect("instadom");
         PreparedStatement ps1 = session.prepare("delete from following where login =? AND following =?");
         
+        System.out.println("current User" + currentUser + " UnFollow " + unFollow );
+        
         BoundStatement boundStatement1 = new BoundStatement(ps1);
-        session.execute(boundStatement1.bind(currentUser, unFollowee ));
-        
-        PreparedStatement ps2 = session.prepare("delete from followers where login =? AND follower =?");
+        session.execute(boundStatement1.bind(currentUser, unFollow ));
+        System.out.println("Deleted from database");
+        /*PreparedStatement ps2 = session.prepare("delete from followers where login =? AND follower =?");
         BoundStatement boundStatement2 = new BoundStatement(ps2);
-        session.execute(boundStatement2.bind(unFollowee, currentUser));
-        
+        session.execute(boundStatement2.bind(unFollow, currentUser));
+        */
     }
     
      public void setCluster(Cluster cluster) {

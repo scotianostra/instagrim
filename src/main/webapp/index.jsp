@@ -58,7 +58,7 @@
                     <%}
                             }else{
                                 %>
-                <a class="navbar-status" href="login.jsp">Log In</a>
+                <a class="navbar-status" href="/InstaDom">Log In</a>
                 <%
                                         
                             
