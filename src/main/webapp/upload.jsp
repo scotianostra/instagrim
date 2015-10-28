@@ -58,7 +58,7 @@
                     <%}
                             }else{
                                 %>
-                <a class="navbar-status" href="login.jsp">Log In</a>
+                <a class="navbar-status" href="/InstaDom">Log In</a>
                 <%
                                         
                             
@@ -69,8 +69,8 @@
             </ul>
         </nav> 
  
-        <article>
-            <h3>File Upload</h3>
+        <div class="container">
+            <h1>File Upload</h1>
             <form method="POST" enctype="multipart/form-data" action="Image">
                 File to upload: <input type="file" name="upfile"><br/>
 
@@ -78,11 +78,10 @@
                 <input type="submit" value="Press"> to upload the file!
             </form>
 
-        </article>
-        <footer>
-            <ul>
-                <li class="footer"><a href="/InstaDom">Home</a></li>
-            </ul>
-        </footer>
+        </div>      
+                 
+           <footer>
+            
+           </footer>
     </body>
 </html>

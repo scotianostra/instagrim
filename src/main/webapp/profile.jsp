@@ -59,13 +59,12 @@
                     %>
 
                     <a class="navbar-status" href="/InstaDom/Images/<%=lg.getUsername()%>"><%=UserName%></a>
-                    <a class="navbar-status" href="/InstaDom/Upload">Add Pic</a>
-                    <a class="navbar-status" href="/InstaDom/Profile">Profile</a>
+                    <a class="navbar-status" href="/InstaDom/Home/<%=lg.getUsername()%>">Home</a> 
                     <a class="navbar-status" href="/InstaDom/Logout">Log Out</a>
                     <%}
                             }else{
                                 %>
-                <a class="navbar-status" href="login.jsp">Log In</a>
+                <a class="navbar-status" href="/InstaDom">Log In</a>
                 <%
                                         
                             
@@ -88,11 +87,27 @@
                
                 <div class="text-center centre-div col-md-5">
                
-                    <h1>You have not completed a profile</h1> 
+                    <h1>Completed your profile</h1> 
                
                 </div>
                
-                <div class="col-md-5 border centre-div">
+                <div class="col-md-offset-1 col-md-5 border">
+                
+                <img src="/InstaDom/Image/<%= profile.getUUID()%>" class="profile-photo img-circle"/>
+                
+                
+                <h2 class="text-center">Edit Profile Picture</h2>
+                <form method="POST" enctype="multipart/form-data" action="ProfilePic">
+                    <div class="form-group block-center">                        
+                        <input class="border1" type="file" name="upfile">
+                    </div>
+                    <div class="text-center">                                                               
+                        <input class="btn btn-primary" type="submit" value="Upload">
+                    </div>
+                </form>
+            </div>
+               
+                <div class="col-md-5 col-md-offset-1 border">
         
             <h2 class="text-center">Complete Profile</h2>
             <form method="POST"  action="Profile">

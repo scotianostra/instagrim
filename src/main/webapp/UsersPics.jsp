@@ -70,13 +70,12 @@
                     %>
 
                     <a class="navbar-status" href="/InstaDom/Images/<%=lg.getUsername()%>"><%=UserName%></a>
-                    <a class="navbar-status" href="/InstaDom/upload.jsp">Add Pic</a>
                     <a class="navbar-status" href="/InstaDom/Home/<%=lg.getUsername()%>">Home</a> 
                     <a class="navbar-status" href="/InstaDom/Logout">Log Out</a>
                     <%}
                             }else{
                                 %>
-                <a class="navbar-status" href="login.jsp">Log In</a>
+                <a class="navbar-status" href="/InstaDom">Log In</a>
                 <%
                                         
                             
@@ -124,7 +123,7 @@
                           %>
                           <div>
                               <form method="get" action="${pageContext.request.contextPath}/Follow">
-                                <button type="submit" class="btn btn-primary">Un Follow</button>  
+                                <button type="submit" class="btn btn-primary">Follow</button>  
                               </form>
                           </div>
                           
@@ -138,7 +137,7 @@
                               session.setAttribute("following", true); %>
                            <div> 
                             <form method="get"  id="Follow" action="${pageContext.request.contextPath}/Follow">
-                           <button type="submit" class ="btn btn-primary">Follow</button> 
+                           <button type="submit" class ="btn btn-primary">Un Follow</button> 
                             </form>  
                            </div> 
                            

@@ -11,6 +11,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.UUID;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -38,6 +44,16 @@ public class Home extends HttpServlet {
     Cluster cluster = null;
     private HashMap CommandsMap = new HashMap();
     
+     /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Home() {
+        super();
+        // TODO Auto-generated constructor stub
+       CommandsMap.put("Home", 1);
+        
+    }
+    
     
     @Override 
     public void init(ServletConfig config) throws ServletException {
@@ -46,12 +62,9 @@ public class Home extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * 
      *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+    
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -84,14 +97,13 @@ public class Home extends HttpServlet {
         
         LinkedList<String> following = new LinkedList<String>();
         following = us.getFollowing(username);        
-    
+            
         LinkedList<Pic> pics = tm.getHomePics(following);
         System.out.println("Linked List all following: " + following);
 
         request.setAttribute("Pics", pics);
         
-        RequestDispatcher rd = request.getRequestDispatcher("/home.jsp");
-        
+        RequestDispatcher rd = request.getRequestDispatcher("/home.jsp");        
         rd.forward(request, response);
 
     }

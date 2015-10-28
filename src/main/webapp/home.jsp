@@ -59,13 +59,12 @@
                     %>
 
                     <a class="navbar-status" href="/InstaDom/Images/<%=lg.getUsername()%>"><%=UserName%></a>
-                    <a class="navbar-status" href="/InstaDom/upload.jsp">Add Pic</a>
-                    <a class="navbar-status" href="/InstaDom/Profile">Profile</a> 
+                    <a class="navbar-status" href="/InstaDom/Home/<%=lg.getUsername()%>">Home</a> 
                     <a class="navbar-status" href="/InstaDom/Logout">Log Out</a>
                     <%}
                             }else{
                                 %>
-                <a class="navbar-status" href="login.jsp">Log In</a>
+                <a class="navbar-status" href="/InstaDom">Log In</a>
                 <%
                                         
                             
@@ -78,8 +77,8 @@
        
        <div class="container">
            
-          
-      <div class="col-md-4 profile-box-pic">
+           
+      <div class="col-md-4 profile-box">
            
             <%
             if (profile.getUUID() == null) {
@@ -100,7 +99,8 @@
             </div>
        
             
-         <div class="col-md-8 profile-box">
+         <div class="col-md-8">
+             <div class="col-md-4 profile-box">
              <div>
              <h1 class="username-title"><%= profile.getUsername()%></h1>
              </div>
@@ -148,34 +148,54 @@
                             %>                 
                             
              
-              
+                            <div>
              <div class="align-names">
              <h3 class=""><%= profile.getFirstname()%></h3>
              </div>
              <div class="align-names">
              <h3 class=""><%= profile.getLastname()%></h3>
              </div>
+                            </div>
+         </div>
              
-             <div class="align-names name-font">
-             <h4><%= profile.getBio()%></h4>
+             
+             
+             <div class="col-md-4 profile-box">
+             <h3>Upload a picture</h3>
+            <form method="POST" enctype="multipart/form-data" action="Image">
+                File to upload: <input type="file"  name="upfile">
+                <br>
+                
+                <input type="submit" class ="btn btn-primary" value="Upload">
+            </form>
              </div>
              
-                      
          </div>
-             <br>
-             <br>
-             <br>
              
+                      
+         
+             
+             
+             
+             <br>
+             <br>
+             <br>
+             <br>
+             <br>
+             <br>
+             <br>
+             <br>
+             <br>
+             <br>
         
             
-       <div class="col-md-8 text-center">
                     
                         <%
                             java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
 
                             if (lsPics == null) {
                         %>
-                        <h1 class="text-center">No Pics found... :(</h1>
+                        <h1 class="text-center">No Pictures found... :(</h1>
                         <%
                         } else {
                             Iterator<Pic> iterator;
@@ -183,10 +203,15 @@
                             while (iterator.hasNext()) {
                                 Pic p = (Pic) iterator.next();
                         %>
-                        <a href="/Instagrim/Image/<%=p.getSUUID()%>" ><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a>
+                        <div class="centre-div marg-fix col-md-8">
+                        <div class="centre-img-home">
+                        <a href="/InstaDom/Image/<%=p.getSUUID()%>" ><img src="/InstaDom/Image/<%=p.getSUUID()%>"></a>
+                        </div>
+                        <div class="text-center">
                         <p>Date: <%=p.getDate()%></p>
-                        <a class="login-title" href="/Instagrim/Images/<%=p.getFollower()%>">Uploaded by <%=p.getFollower()%></a>
-
+                        <a class="" href="/InstaDom/Images/<%=p.getFollower()%>">Uploaded by <%=p.getFollower()%></a>
+                        </div>
+                        </div>
                         <%}
                             }%>
         

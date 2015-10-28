@@ -265,7 +265,7 @@ public class PicModel {
                 for (Row row : rs) {
                     Pic pic = new Pic();
                     
-                    UUID UUID = row.getUUID("picid");
+                    java.util.UUID UUID = row.getUUID("picid");
                     pic.setUUID(UUID);                    
                     pic.setFollower(string);                    
                     String date = row.getDate("pic_added").toString();
