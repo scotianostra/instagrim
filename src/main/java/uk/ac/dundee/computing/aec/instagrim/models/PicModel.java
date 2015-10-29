@@ -162,15 +162,15 @@ public class PicModel {
     }
 
     public static BufferedImage createThumbnail(BufferedImage img) {
-        img = resize(img, Method.SPEED, 250, OP_ANTIALIAS, OP_GRAYSCALE);
+        img = resize(img, Method.SPEED, 300, OP_ANTIALIAS);
         // Let's add a little border before we return result.
-        return pad(img, 2);
+        return img;
     }
     
    public static BufferedImage createProcessed(BufferedImage img) {
         int Width=img.getWidth()-1;
-        img = resize(img, Method.SPEED, Width, OP_ANTIALIAS, OP_GRAYSCALE);
-        return pad(img, 4);
+        img = resize(img, Method.SPEED, Width, OP_ANTIALIAS);
+        return img;
     }
    
     public java.util.LinkedList<Pic> getPicsForUser(String User) {
