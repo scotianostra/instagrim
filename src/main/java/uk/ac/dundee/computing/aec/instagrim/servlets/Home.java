@@ -6,18 +6,9 @@
 package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.util.UUID;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -27,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
-import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 import uk.ac.dundee.computing.aec.instagrim.models.PicModel;
 import uk.ac.dundee.computing.aec.instagrim.models.User;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
@@ -42,11 +32,8 @@ import uk.ac.dundee.computing.aec.instagrim.stores.UserProfile;
 public class Home extends HttpServlet {
     
     Cluster cluster = null;
-    private HashMap CommandsMap = new HashMap();
+    private final HashMap CommandsMap = new HashMap();
     
-     /**
-     * @see HttpServlet#HttpServlet()
-     */
     public Home() {
         super();
         // TODO Auto-generated constructor stub
@@ -62,9 +49,10 @@ public class Home extends HttpServlet {
     }
 
     /**
-     * 
-     *
-    
+     * @param request    
+     * @param response    
+     * @throws javax.servlet.ServletException    
+     * @throws java.io.IOException    
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

@@ -8,8 +8,6 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +21,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 
 /**
  *
- * @author Administrator
+ * @author Dominic
  */
 @WebServlet(name = "Login", urlPatterns = {"/Login", "/InstaDom/"})
 public class Login extends HttpServlet {
@@ -31,6 +29,7 @@ public class Login extends HttpServlet {
     Cluster cluster=null;
 
 
+    @Override
     public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
@@ -65,17 +64,15 @@ public class Login extends HttpServlet {
             session.setAttribute("LoggedIn", lg);
             session.setAttribute("param", "Search for user");
             System.out.println("Session in servlet "+session);
-            response.sendRedirect("/InstaDom/Images/" + username);
+            response.sendRedirect("/InstaDom/Home");
             
         }else{
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("/InstaDom");
         }
         
     }
 
     /**
-     * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override

@@ -30,19 +30,37 @@
     
    <body>
          <%UserProfile profile = (UserProfile)request.getAttribute("UserProfile"); %>
-        
+         <%LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");%>
+
         <nav class="navbar">
             <ul>
             <div class="navbar-brand text-center col-md-4">
-                <a class="navbar-brand" href="/InstaDom">Instagrim</a>
+                <%
+                
+                        if (lg == null) {
+                            
+                %>    
+                    <a class="navbar-brand" href="/InstaDom">Instagrim</a>
+                <%
+                        }
+                   else{
+                 %>
+                    
+                <a class="navbar-brand" href="/InstaDom/Home">Instagrim</a>
+                <%
+                   }
+                        %>
             </div>
                 
             <div class="navbar-search text-center col-md-4">
-             <form class = "navbar-form" role = "search">
-         
-                 <div class = "form-group">
-                 <input type = "text" class = "form-control" placeholder = "${sessionScope.param}">
+                
+                 <form class="navbar-form" method="post" action= "Search">         
+                 <div class = "form-group">                    
+                     <input type="text" name="username" class="form-control" placeholder="${sessionScope.param}" required autofocus>
+                 
                  </div>
+                 <form>
+                 
                  <button type = "submit" class = "btn btn-default">Search</button>
          
              </form>    
@@ -51,18 +69,17 @@
             <div class="navbar-status navbar-brand text-center col-md-4">
                 
                  <%
+                        if (lg != null){
                         
-                        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-                        if (lg != null) {
-                            String UserName = lg.getUsername();
                             if (lg.getlogedin()) {
+                                String UserName = lg.getUsername();
                     %>
 
                     <a class="navbar-status" href="/InstaDom/Images/<%=lg.getUsername()%>"><%=UserName%></a>
                     <a class="navbar-status" href="/InstaDom/Home/<%=lg.getUsername()%>">Home</a> 
                     <a class="navbar-status" href="/InstaDom/Logout">Log Out</a>
                     <%}
-                            }else{
+                        }else{
                                 %>
                 <a class="navbar-status" href="/InstaDom">Log In</a>
                 <%
@@ -81,7 +98,7 @@
                
                <%
                         
-                        if (profile.getFirstname() == null) {                      
+                        if (profile == null) {                      
                     
                %>
                
@@ -93,10 +110,9 @@
                
                 <div class="col-md-offset-1 col-md-5 border">
                 
-                <img src="/InstaDom/Image/<%= profile.getUUID()%>" class="profile-photo img-circle"/>
+                <img src="/InstaDom/img/generic-avatar.png" class="profile-photo img-circle"/>                  
                 
-                
-                <h2 class="text-center">Edit Profile Picture</h2>
+                <h2 class="text-center">Add Profile Picture</h2>
                 <form method="POST" enctype="multipart/form-data" action="ProfilePic">
                     <div class="form-group block-center">                        
                         <input class="border1" type="file" name="upfile">
@@ -110,7 +126,7 @@
                 <div class="col-md-5 col-md-offset-1 border">
         
             <h2 class="text-center">Complete Profile</h2>
-            <form method="POST"  action="Profile">
+            <form method="POST"  action="/InstaDom/Profile">
                 <div class="form-group">
                     <label>First Name</label>
                     <input type="text" class="form-control" name="firstname" placeholder="Name">
@@ -146,7 +162,22 @@
             
             <div class="col-md-offset-1 col-md-5 border">
                 
-                <img src="/InstaDom/Image/<%= profile.getUUID()%>" class="profile-photo img-circle"/>
+                  <%
+            if (profile.getUUID() == null) {
+                %>
+            <img src="/InstaDom/img/generic-avatar.png" class="profile-photo img-circle"/>    
+        <%}
+             else
+        {%>  
+                 
+            <img src="/InstaDom/Image/<%= profile.getUUID()%>" class="profile-photo img-circle"/>                
+                      
+         
+         
+        <%
+         }
+         %>
+           
                 
                 
                 <h2 class="text-center">Edit Profile Picture</h2>
@@ -165,7 +196,7 @@
             <div class="col-md-offset-1 col-md-5 border">
         
             <h2 class="text-center">Edit Profile Details</h2>
-            <form method="POST"  action="Profile">
+            <form method="POST"  action="/InstaDom/Profile">
                 <div class="form-group">
                     <label>First Name</label>
                     <input type="text" class="form-control" name="firstname" value="<%= profile.getFirstname()%>">
@@ -184,8 +215,7 @@
                 </div>
             </form>
             
-            </div>
-                
+            </div>          
             
                         
                

@@ -26,18 +26,37 @@
     
     <body>
         
+               <%LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");%>
+
         <nav class="navbar">
             <ul>
             <div class="navbar-brand text-center col-md-4">
-                <a class="navbar-brand" href="/InstaDom">Instagrim</a>
+                <%
+                
+                        if (lg == null) {
+                            
+                %>    
+                    <a class="navbar-brand" href="/InstaDom">Instagrim</a>
+                <%
+                        }
+                   else{
+                 %>
+                    
+                <a class="navbar-brand" href="/InstaDom/Home">Instagrim</a>
+                <%
+                   }
+                        %>
             </div>
                 
             <div class="navbar-search text-center col-md-4">
-             <form class = "navbar-form" role = "search">
-         
-                 <div class = "form-group">
-                 <input type = "text" class = "form-control" placeholder = "Search for users">
+                
+                 <form class="navbar-form" method="post" action= "Search">         
+                 <div class = "form-group">                    
+                     <input type="text" name="username" class="form-control" placeholder="${sessionScope.param}" required autofocus>
+                 
                  </div>
+                 <form>
+                 
                  <button type = "submit" class = "btn btn-default">Search</button>
          
              </form>    
@@ -46,17 +65,17 @@
             <div class="navbar-status navbar-brand text-center col-md-4">
                 
                  <%
+                        if (lg != null){
                         
-                        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-                        if (lg != null) {
-                            String UserName = lg.getUsername();
                             if (lg.getlogedin()) {
+                                String UserName = lg.getUsername();
                     %>
 
                     <a class="navbar-status" href="/InstaDom/Images/<%=lg.getUsername()%>"><%=UserName%></a>
-                    <a class="navbar-status" href="Logout">Log Out</a>
+                    <a class="navbar-status" href="/InstaDom/Home/<%=lg.getUsername()%>">Home</a> 
+                    <a class="navbar-status" href="/InstaDom/Logout">Log Out</a>
                     <%}
-                            }else{
+                        }else{
                                 %>
                 <a class="navbar-status" href="/InstaDom">Log In</a>
                 <%
@@ -96,17 +115,13 @@
             </div>
             
             <div class="col-md-4 register-status text-center centre-div">
-                <h4><a class="register-status " href="register.jsp">Or Register Here</a></h4>
+                <h4><a class="register-status" href="/InstaDom/Register">Or Register Here</a></h4>
             </div>
         
        
            
         <footer>
-            <ul>
-                <li class="footer"><a href="/InstaDom">Home</a></li>
-                <li class="footer"><a href="register.jsp">Register</a></li>
-                <li class="footer"><a href="upload.jsp">Upload</a></li>
-            </ul>
+            
         </footer>
                    </div>
 

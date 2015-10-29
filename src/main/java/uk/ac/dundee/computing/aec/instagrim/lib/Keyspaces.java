@@ -30,7 +30,7 @@ public final class Keyspaces {
                     + " name  varchar,"
                     + " PRIMARY KEY (picid)"
                     + ")";
-            String CreateIndexOnPics = "Create INDEX userpiclist ON instadom.Pics (user)";
+           // String CreateIndexOnPics = "Create INDEX userpiclist ON instadom.Pics (user)";
             String Createuserpiclist = "CREATE TABLE if not exists instadom.userpiclist (\n"
                     + "picid uuid,\n"
                     + "user varchar,\n"
@@ -123,13 +123,7 @@ public final class Keyspaces {
                 System.out.println("Can't create following table " + et);
             }
             
-            System.out.println("" + CreateIndexOnPics);
-                try {
-                    SimpleStatement cqlQuery = new SimpleStatement(CreateIndexOnPics);
-                    session.execute(cqlQuery);
-                } catch (Exception et) {
-                    System.out.println("Can't create index " + et);
-                }
+         
             
              System.out.println("" + CreateIndexOnUserPicsList);
                 try {

@@ -19,10 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import org.apache.commons.fileupload.FileItemIterator;
-import org.apache.commons.fileupload.FileItemStream;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.fileupload.util.Streams;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 import uk.ac.dundee.computing.aec.instagrim.models.PicModel;
@@ -49,7 +45,7 @@ public class Image extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     private Cluster cluster;
-    private HashMap CommandsMap = new HashMap();
+    private final HashMap CommandsMap = new HashMap();
     
     
 
@@ -163,7 +159,7 @@ public class Image extends HttpServlet {
 
         response.setContentType(p.getType());
         response.setContentLength(p.getLength());
-        //out.write(Image);
+       
         InputStream is = new ByteArrayInputStream(p.getBytes());
         BufferedInputStream input = new BufferedInputStream(is);
         byte[] buffer = new byte[8192];
@@ -206,7 +202,7 @@ public class Image extends HttpServlet {
                     
                 }
 
-                is.close();
+               // is.close();
             }
             response.sendRedirect("/InstaDom/Images/" + username);
         }
@@ -221,6 +217,5 @@ public class Image extends HttpServlet {
         out.println("<h1>You have a na error in your input</h1>");
         out.println("<h2>" + mess + "</h2>");
         out.close();
-        return;
     }
 }

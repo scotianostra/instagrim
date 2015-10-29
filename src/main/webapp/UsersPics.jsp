@@ -23,30 +23,33 @@
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="/InstaDom/js/bootstrap.js"></script>
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-       <%-- <script>function submitMyForm(){ document.forms["Follow"].submit();}</script>--%>
     </head>
     
-   <%-- <script>
-    $(document).on("submit", "#Follow", function() {
-    //var $form = $(this);
-
-    $.post($form.attr("action"), $form.serialize(), function(responseJson) {
-        // ...
-    });
-});
-</script>--%>
-
-    
+      
    <body>
        
-       <%UserProfile profile = (UserProfile) request.getAttribute("UserProfile"); %>
-       <%session.setAttribute("profileName", (profile.getUsername()));%>
-       
+       <%UserProfile profile = (UserProfile) request.getAttribute("UserProfile"); 
+       session.setAttribute("profileName", (profile.getUsername()));
+       LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");%>
       
         <nav class="navbar">
             <ul>
             <div class="navbar-brand text-center col-md-4">
-                <a class="navbar-brand" href="/InstaDom">Instagrim</a>
+                <%
+                
+                        if (lg == null) {
+                            
+                %>    
+                    <a class="navbar-brand" href="/InstaDom">Instagrim</a>
+                <%
+                        }
+                   else{
+                 %>
+                    
+                <a class="navbar-brand" href="/InstaDom/Home">Instagrim</a>
+                <%
+                   }
+                        %>
             </div>
                 
             <div class="navbar-search text-center col-md-4">
@@ -66,18 +69,17 @@
             <div class="navbar-status navbar-brand text-center col-md-4">
                 
                  <%
+                        if (lg != null){
                         
-                        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-                        if (lg != null) {
-                            String UserName = lg.getUsername();
                             if (lg.getlogedin()) {
+                                String UserName = lg.getUsername();
                     %>
 
                     <a class="navbar-status" href="/InstaDom/Images/<%=lg.getUsername()%>"><%=UserName%></a>
                     <a class="navbar-status" href="/InstaDom/Home/<%=lg.getUsername()%>">Home</a> 
                     <a class="navbar-status" href="/InstaDom/Logout">Log Out</a>
                     <%}
-                            }else{
+                        }else{
                                 %>
                 <a class="navbar-status" href="/InstaDom">Log In</a>
                 <%
