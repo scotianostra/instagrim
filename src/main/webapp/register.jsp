@@ -100,22 +100,32 @@
             <form method="POST"  action="Register">
                 <div class="form-group">
                     <label>User Name</label>
-                    <input type="text" class="form-control" name="username" placeholder="Name">
+                    <input type="text" class="form-control" name="username" placeholder="">
                  </div>
+                
+                <% if (request.getAttribute("taken") != null) { %>
+                
+                 <div class="form-group">
+                <h5>*Username already taken, please try again</h5>
+                </div>
+                <%}%>
                 
                  <div class="form-group">
                     <label>Password</label>
                     <input type="password" class="form-control" name="password" placeholder="Password">
                  </div>
                 
-                 <div class="form-group">
+                
                     <label>Email</label>
-                    <input type="text" class="form-control" name="email" placeholder="email">
+                    <input type="text" class="form-control" name="email" placeholder="email"  <% if (request.getAttribute("email") != null) {%> value="<%=request.getAttribute("email")%>" <%}%> >
                  </div>
                 
                 <div class="text-center">
                 <button type="submit" class="btn btn-primary">Register</button>
                 </div>
+               
+                 
+                
             </form>
                 
             </div>

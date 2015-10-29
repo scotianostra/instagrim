@@ -104,7 +104,7 @@
                
                 <div class="text-center centre-div col-md-5">
                
-                    <h1>Completed your profile</h1> 
+                    <h1>Complete your profile</h1> 
                
                 </div>
                

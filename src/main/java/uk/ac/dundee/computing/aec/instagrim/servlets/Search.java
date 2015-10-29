@@ -28,6 +28,8 @@ urlPatterns = {
                 "/Search",
                 "/Images/Search",
                 "/Home/Search",
+                "/Profile/Search",
+                "/Register/Search"
                   })
 public class Search extends HttpServlet {
 

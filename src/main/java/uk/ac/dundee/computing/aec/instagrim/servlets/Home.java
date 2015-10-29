@@ -64,6 +64,7 @@ public class Home extends HttpServlet {
             us.setCluster(cluster);
             
             HttpSession session = request.getSession();
+            
             LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");         
             String username = lg.getUsername();
             

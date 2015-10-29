@@ -174,6 +174,7 @@ public class Image extends HttpServlet {
         String pathParts[] = Convertors.SplitRequestPath(request);
         System.out.println("request path " + pathParts[1]);
         
+        
                 
         for (Part part : request.getParts()) {
             System.out.println("Part Name " + part.getName());
@@ -197,14 +198,16 @@ public class Image extends HttpServlet {
                 tm.setCluster(cluster);
                 if (pathParts[1].equals("ProfilePic")) {
                     tm.insertPic(b, type, filename, username, true);
+                    response.sendRedirect("/InstaDom/Profile");
                 } else {
-                    tm.insertPic(b, type, filename, username, false);                   
+                    tm.insertPic(b, type, filename, username, false); 
+                    response.sendRedirect("/InstaDom/Images/" + username);
                     
                 }
 
-               // is.close();
+               
             }
-            response.sendRedirect("/InstaDom/Images/" + username);
+            
         }
 
     }

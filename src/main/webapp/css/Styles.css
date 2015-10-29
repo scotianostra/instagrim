@@ -117,6 +117,29 @@ nav {
      margin-left: auto;
      margin-right: auto;
 }
+.darken-img {
+    display: block;
+    background-color: #fafafa;
+}
+.darken-img:hover {
+    background-color: black;
+}
+.darken-img img {
+    width:100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+.darken-img img:hover {
+    opacity: 0.75;
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition:.5s;
+}
+
 .profile-photo{
     height: 150px;
     width: 150px;
@@ -132,9 +155,14 @@ nav {
     margin-top: 20px;
 }
 .profile-box {
-    margin-bottom: 100px;
-    margin-top: 0px;
+   margin-bottom: 100px;
+   height: 100px;
+   margin-top: 0px;
    padding-left: 45px;
+   
+}
+.overflow-fix {
+    overflow: auto;
 }
 .v-center {
     
@@ -163,6 +191,8 @@ nav {
     
 }
 .marg-fix{
-    margin-top: 50px;
-    
+    margin-top: 20px;    
+}
+.dark-marg-fix{
+    margin-top: 20px;    
 }

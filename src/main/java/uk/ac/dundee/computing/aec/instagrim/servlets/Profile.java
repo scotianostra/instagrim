@@ -47,10 +47,10 @@ public class Profile extends HttpServlet {
         
         request.setAttribute("username", usname);
         request.setAttribute("UserProfile", up);
-        System.out.println("Fname " + up.getFirstname());
-        System.out.println("LName " + up.getLastname());
-        System.out.println("uuid:NNNN " + up.getUUID());
-        System.out.println("Profile data " + up.getBio());
+        //System.out.println("Fname " + up.getFirstname());
+        //System.out.println("LName " + up.getLastname());
+        //System.out.println("uuid:NNNN " + up.getUUID());
+        //System.out.println("Profile data " + up.getBio());
         
         RequestDispatcher rd = request.getRequestDispatcher("profile.jsp");
         

@@ -96,7 +96,8 @@
                 <%
                     if (profile.getUUID() == null) {
                 %>
-                <p>No profile picture uploaded</p>
+                 <img src="/InstaDom/img/generic-avatar.png" class="profile-photo img-circle"/> 
+                 
                 <%} else {%>  
 
                 <img src="/InstaDom/Image/<%= profile.getUUID()%>" class="profile-photo img-circle"/>                
@@ -160,14 +161,54 @@
 
 
                 <div class="align-names">
+                    
+                    <%
+                    
+                    if(profile.getFirstname() != null){
+                        
+                        %>
+                                        
                     <h3 class=""><%= profile.getFirstname()%></h3>
+                    
+                    <%}else{%>
+                    
+                     <h3 class=""></h3>
+                     
+                     <%}%>
+                    
                 </div>
                 <div class="align-names">
+                    
+                     <%
+                    
+                    if(profile.getLastname() != null){
+                        
+                        %>
+                    
                     <h3 class=""><%= profile.getLastname()%></h3>
+                    
+                     <%}else{%>
+                    
+                     <h3 class=""></h3>
+                     
+                     <%}%>
                 </div>
 
                 <div class="align-names name-font">
+                    
+                     <%
+                    
+                    if(profile.getBio() != null){
+                        
+                        %>
+                    
                     <h4><%= profile.getBio()%></h4>
+                    
+                    <%}else{%>
+                    
+                     <h4 class=""></h4>
+                     
+                     <%}%>
                 </div>
 
 
@@ -185,7 +226,7 @@
 
                 if (lsPics == null) {
             %>
-            <p>No Pictures found</p>
+            <h1 class="text-center">No Pictures Added Yet  :-(</h1>
             <%
             } else {
                 Iterator<Pic> iterator;
@@ -195,8 +236,8 @@
 
 
             %>
-            <div class="col-md-4 centre-img">
-                <div class="centre-img">
+            <div class="col-md-4 centre-img ">
+                <div class="centre-img darken-img">
                     <a href="/InstaDom/Image/<%=p.getSUUID()%>" ><img  src="/InstaDom/Image/<%=p.getSUUID()%>"></a>
                 </div>
                 <%
@@ -206,7 +247,7 @@
 
                 %>
 
-                <br>
+                
 
                 <div class="text-center">  
                     <form method="post" id="Delete" action="${pageContext.request.contextPath}/Delete">

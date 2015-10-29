@@ -45,6 +45,8 @@ public class User {
 
         }
         
+        if (!checkUserName(username)) {
+        
         Session session = cluster.connect("instadom");
         PreparedStatement ps = session.prepare("insert into userprofiles (login, password, email) Values(?,?,?)");
        
@@ -53,6 +55,29 @@ public class User {
         //We are assuming this always works.  Also a transaction would be good here !
         
         return true;
+        }
+        return false;
+    }
+    
+     public boolean checkUserName(String username) {
+         
+        Session session = cluster.connect("instadom");
+        PreparedStatement ps = session.prepare("select login from userprofiles where login=?");        
+        BoundStatement boundStatement = new BoundStatement(ps);
+        
+        String string = "";
+        ResultSet rs = null;
+        rs = session.execute(boundStatement.bind(username));
+        
+        if (rs.isExhausted()) {
+        } else {
+            for (Row row : rs) {
+                string = row.getString("login");
+            }
+        }
+        
+        boolean exists = string.equals(username);
+        return exists;
     }
     
     public boolean IsValidUser(String username, String Password){

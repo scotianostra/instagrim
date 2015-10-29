@@ -15,8 +15,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.models.User;
+import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 
 /**
  *
@@ -53,15 +55,37 @@ public class Register extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        HttpSession session=request.getSession();
+
+        
         String username=request.getParameter("username");
         String password=request.getParameter("password");
         String email=request.getParameter("email");
-        User us=new User();
+        User us = new User();
         us.setCluster(cluster);
-        us.RegisterUser(username, password, email);
         
-	response.sendRedirect("/InstaDom");
+        if (us.RegisterUser(username, password, email)) {
+            
+            LoggedIn lg= new LoggedIn();
+            lg.setLogedin();
+            lg.setUsername(username);
+            
+             session.setAttribute("LoggedIn", lg);
+             session.setAttribute("param", "Search for user");
+            
+            response.sendRedirect("/InstaDom/Images/" + username);
+        } else {
+            
+            request.setAttribute("taken", true);
+            request.setAttribute("username", username);
+            request.setAttribute("email", email);
+            
+            RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
+            rd.forward(request, response);
+        }
         
+               
     }
 
     /**

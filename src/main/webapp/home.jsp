@@ -116,7 +116,7 @@
             </div>
        
             
-         <div class="col-md-8">
+         <div class="col-md-8 overflow-fix">
              <div class="col-md-4 profile-box">
              <div>
              <h1 class="username-title"><%= profile.getUsername()%></h1>
@@ -166,12 +166,41 @@
                             
              
              <div>
-             <div class="align-names">
-             <h3 class=""><%= profile.getFirstname()%></h3>
-             </div>
-             <div class="align-names">
-             <h3 class=""><%= profile.getLastname()%></h3>
-             </div>
+                 
+              <div class="align-names">
+                    
+                    <%
+                    
+                    if(profile.getFirstname() != null){
+                        
+                        %>
+                                        
+                    <h3 class=""><%= profile.getFirstname()%></h3>
+                    
+                    <%}else{%>
+                    
+                     <h3 class=""></h3>
+                     
+                     <%}%>
+                    
+                </div>
+                <div class="align-names">
+                    
+                     <%
+                    
+                    if(profile.getLastname() != null){
+                        
+                        %>
+                    
+                    <h3 class=""><%= profile.getLastname()%></h3>
+                    
+                     <%}else{%>
+                    
+                     <h3 class=""></h3>
+                     
+                     <%}%>
+                </div>
+             
              </div>
          </div>
              
@@ -187,23 +216,18 @@
             </form>
              </div>
              
-         </div>
+         </div>            
+             <br>
+             <br>
+             <br>
+             <br>
+             <br>
+             <br>
+             <br>
+             <br>
+             <br>
+             <br>
              
-                      
-         
-             
-             
-             
-             <br>
-             <br>
-             <br>
-             <br>
-             <br>
-             <br>
-             <br>
-             <br>
-             <br>
-             <br>
         
             
                     
@@ -221,7 +245,7 @@
                                 Pic p = (Pic) iterator.next();
                         %>
                         <div class="centre-div marg-fix col-md-8">
-                        <div class="centre-img-home">
+                        <div class="darken-img dark-marg-fix centre-img-home">
                         <a href="/InstaDom/Image/<%=p.getSUUID()%>" ><img src="/InstaDom/Image/<%=p.getSUUID()%>"></a>
                         </div>
                         <div class="text-center">

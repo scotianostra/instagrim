@@ -70,19 +70,22 @@ public class PicModel {
             ByteBuffer processedbuf=ByteBuffer.wrap(processedb);
             int processedlength=processedb.length;
             Session session = cluster.connect("instadom");
+            
+            Date DateAdded = new Date();
 
             PreparedStatement psInsertPic = session.prepare("insert into pics ( picid, image,thumb,processed, user, interaction_time,imagelength,thumblength,processedlength,type,name) values(?,?,?,?,?,?,?,?,?,?,?)");
-            PreparedStatement psInsertPicToUser = session.prepare("insert into userpiclist ( picid, user, pic_added) values(?,?,?)");
             BoundStatement bsInsertPic = new BoundStatement(psInsertPic);
-            BoundStatement bsInsertPicToUser = new BoundStatement(psInsertPicToUser);
-
-            Date DateAdded = new Date();
             session.execute(bsInsertPic.bind(picid, buffer, thumbbuf,processedbuf, user, DateAdded, length,thumblength,processedlength, type, name));
-            session.execute(bsInsertPicToUser.bind(picid, user, DateAdded));
+
             
             
+            if (!profpic){
+                PreparedStatement psInsertPicToUser = session.prepare("insert into userpiclist ( picid, user, pic_added) values(?,?,?)");
+                BoundStatement bsInsertPicToUser = new BoundStatement(psInsertPicToUser);            
+                session.execute(bsInsertPicToUser.bind(picid, user, DateAdded));
+            }
             
-            if (profpic) {
+            else {
                 PreparedStatement profilePic = session.prepare("update userprofiles SET picid = ? where login = ?;");
                 BoundStatement insertProfile = new BoundStatement(profilePic);
                 session.execute(insertProfile.bind(picid, user));
@@ -97,17 +100,12 @@ public class PicModel {
     }
     
     public void deletePic(String picid) {
-        try(Session session = cluster.connect("instadom")){
-        
-                       
-            PreparedStatement ps1 = session.prepare("delete from Pics where picid=?");
-            BoundStatement boundStatement1 = new BoundStatement(ps1);
-            session.execute(boundStatement1.bind(java.util.UUID.fromString(picid))); 
-            
+        try(Session session = cluster.connect("instadom")){      
+          
             ResultSet rs = null;
-            PreparedStatement ul = session.prepare("select * from userpiclist where picid=?");
-            BoundStatement boundStatementFind = new BoundStatement(ul);
-            rs = session.execute(boundStatementFind.bind(java.util.UUID.fromString(picid)));
+            PreparedStatement ps1 = session.prepare("select * from userpiclist where picid=?");
+            BoundStatement boundStatement1 = new BoundStatement(ps1);
+            rs = session.execute(boundStatement1.bind(java.util.UUID.fromString(picid)));
             
             String name = "";
             Date dateStamp = new Date();
@@ -121,9 +119,13 @@ public class PicModel {
             }
             System.out.println("User: " + name + "time: " + dateStamp);
             
-            PreparedStatement ps2 = session.prepare("delete from userpiclist where user=? and pic_added=?");
+            PreparedStatement ps2 = session.prepare("delete from Pics where picid=?");
             BoundStatement boundStatement2 = new BoundStatement(ps2);
-            session.execute(boundStatement2.bind(name, dateStamp)); 
+            session.execute(boundStatement2.bind(java.util.UUID.fromString(picid)));
+            
+            PreparedStatement ps3 = session.prepare("delete from userpiclist where user=? and pic_added=?");
+            BoundStatement boundStatement3 = new BoundStatement(ps3);
+            session.execute(boundStatement3.bind(name, dateStamp)); 
             
             }
     }
