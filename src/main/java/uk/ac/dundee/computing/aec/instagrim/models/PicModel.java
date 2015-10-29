@@ -98,6 +98,38 @@ public class PicModel {
             System.out.println("Error --> " + ex);
         }
     }
+    
+    public void deletePic(String picid) {
+        try(Session session = cluster.connect("instadom")){
+        
+                       
+            PreparedStatement ps1 = session.prepare("delete from Pics where picid=?");
+            BoundStatement boundStatement1 = new BoundStatement(ps1);
+            session.execute(boundStatement1.bind(java.util.UUID.fromString(picid))); 
+            
+            ResultSet rs = null;
+            PreparedStatement ul = session.prepare("select * from userpiclist where picid=?");
+            BoundStatement boundStatementFind = new BoundStatement(ul);
+            rs = session.execute(boundStatementFind.bind(java.util.UUID.fromString(picid)));
+            
+            String name = "";
+            Date dateStamp = new Date();
+            
+            if (rs.isExhausted()) {
+            } else {
+                for (Row row : rs) {
+                    name = row.getString("user");
+                    dateStamp = row.getDate("pic_added");
+                }
+            }
+            System.out.println("User: " + name + "time: " + dateStamp);
+            
+            PreparedStatement ps2 = session.prepare("delete from userpiclist where user=? and pic_added=?");
+            BoundStatement boundStatement2 = new BoundStatement(ps2);
+            session.execute(boundStatement2.bind(name, dateStamp)); 
+            
+            }
+    }
 
     public byte[] picresize(String picid,String type) {
         try {

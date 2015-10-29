@@ -36,7 +36,7 @@
              <form class = "navbar-form" role = "search">
          
                  <div class = "form-group">
-                 <input type = "text" class = "form-control" placeholder = "Search">
+                 <input type = "text" class = "form-control" placeholder = "${sessionScope.param}">
                  </div>
                  <button type = "submit" class = "btn btn-default">Search</button>
          

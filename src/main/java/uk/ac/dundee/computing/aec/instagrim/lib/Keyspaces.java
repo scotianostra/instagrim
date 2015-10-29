@@ -30,12 +30,14 @@ public final class Keyspaces {
                     + " name  varchar,"
                     + " PRIMARY KEY (picid)"
                     + ")";
+            String CreateIndexOnPics = "Create INDEX userpiclist ON instadom.Pics (user)";
             String Createuserpiclist = "CREATE TABLE if not exists instadom.userpiclist (\n"
                     + "picid uuid,\n"
                     + "user varchar,\n"
                     + "pic_added timestamp,\n"
                     + "PRIMARY KEY (user,pic_added)\n"
                     + ") WITH CLUSTERING ORDER BY (pic_added desc);";
+            String CreateIndexOnUserPicsList = "Create INDEX userlistPicid ON instaDom.userpiclist (picid)";
             String CreateAddressType = "CREATE TYPE if not exists instadom.address (\n"
                     + "      street text,\n"
                     + "      city text,\n"
@@ -121,6 +123,23 @@ public final class Keyspaces {
                 System.out.println("Can't create following table " + et);
             }
             
+            System.out.println("" + CreateIndexOnPics);
+                try {
+                    SimpleStatement cqlQuery = new SimpleStatement(CreateIndexOnPics);
+                    session.execute(cqlQuery);
+                } catch (Exception et) {
+                    System.out.println("Can't create index " + et);
+                }
+            
+             System.out.println("" + CreateIndexOnUserPicsList);
+                try {
+                    SimpleStatement cqlQuery = new SimpleStatement(CreateIndexOnUserPicsList);
+                    session.execute(cqlQuery);
+                } catch (Exception et) {
+                    System.out.println("Can't create index " + et);
+                }
+            
+                
             session.close();
 
         } catch (Exception et) {

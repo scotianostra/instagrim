@@ -41,7 +41,7 @@
                  <form class = "navbar-form" role = "search">
          
                  <div class = "form-group">
-                 <input type = "text" class = "form-control" placeholder = "Search">
+                 <input type = "text" class = "form-control" placeholder = "${sessionScope.param}">
                  </div>
                  <button type = "submit" class = "btn btn-default">Search</button>
          
@@ -148,14 +148,14 @@
                             %>                 
                             
              
-                            <div>
+             <div>
              <div class="align-names">
              <h3 class=""><%= profile.getFirstname()%></h3>
              </div>
              <div class="align-names">
              <h3 class=""><%= profile.getLastname()%></h3>
              </div>
-                            </div>
+             </div>
          </div>
              
              
@@ -212,7 +212,8 @@
                         <a class="" href="/InstaDom/Images/<%=p.getFollower()%>">Uploaded by <%=p.getFollower()%></a>
                         </div>
                         </div>
-                        <%}
+                        <%
+                            }
                             }%>
         
         <footer>
@@ -223,7 +224,7 @@
        
        </div> 
                             
-       </div>
+       
     </body>
 </html>
 

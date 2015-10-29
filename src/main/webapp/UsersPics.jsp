@@ -41,7 +41,7 @@
        
        <%UserProfile profile = (UserProfile) request.getAttribute("UserProfile"); %>
        <%session.setAttribute("profileName", (profile.getUsername()));%>
-       <
+       
       
         <nav class="navbar">
             <ul>
@@ -200,14 +200,36 @@
                
 
         %>
-        <div class="col col-md-4 centre-img">
+        <div class="col-md-4 centre-img">
         <a href="/InstaDom/Image/<%=p.getSUUID()%>" ><img  src="/InstaDom/Image/<%=p.getSUUID()%>"></a>
+        
+        <%
+         if (lg != null)  {
+                            if(lg.getUsername().equals( profile.getUsername()) ) {
+                                
+                            }
+         %>
+                
+         <br>
+                
+                           <div class="text-center">  
+                           <form method="post" id="Delete" action="${pageContext.request.contextPath}/Delete">
+                           <input type="hidden" name="deletedPicid" value="<%=p.getSUUID()%>" >
+                           <button type = "submit" onclick="javascript:return confirm('Are you sure?')" class = "btn btn-primary">Delete Pic</button>
+                          
+                           </form>
+                           </div>
+       
+        
+        
         </div>
         
         <%
         
             }
             }
+            }
+        
         %>
         
         <footer>

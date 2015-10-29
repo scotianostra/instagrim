@@ -101,11 +101,12 @@ public class Search extends HttpServlet {
         //if (username == null) {
             //response.sendRedirect("/Instagrim/Explore/");
         if (users.contains(searchName)) {
+             session.setAttribute("param", "Search for another user");
             response.sendRedirect("/InstaDom/Images/" + searchName);
         }
         else{
             
-            session.setAttribute("param", "User not found");
+            session.setAttribute("param", "User not found, try again");
             if(lg != null){
                  String currentUser = lg.getUsername();
                  System.out.println("Current User: " + currentUser);
