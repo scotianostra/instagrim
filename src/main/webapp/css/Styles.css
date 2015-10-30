@@ -155,11 +155,14 @@ nav {
     margin-top: 20px;
 }
 .profile-box {
-   margin-bottom: 100px;
+   margin-bottom: 130px;
    height: 100px;
    margin-top: 0px;
    padding-left: 45px;
    
+}
+.register-fix {
+    margin-top: 70px;
 }
 .overflow-fix {
     overflow: auto;
