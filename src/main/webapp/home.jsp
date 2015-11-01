@@ -90,7 +90,7 @@
         <div class="container">
 
 
-            <div class="col-md-4 profile-box">
+            <div class="col-md-4 profile-box home-prof-fix">
 
                 <%
                     if (profile.getUUID() == null) {
@@ -109,7 +109,7 @@
             </div>
 
 
-            <div class="col-md-8 overflow-fix">
+            <div class="col-md-8 overflow-fix home-prof-fix">
                 <div class="col-md-4 profile-box">
                     <div>
                         <h1 class="username-title"><%= profile.getUsername()%></h1>
@@ -199,15 +199,28 @@
 
                 <div class="col-md-4 profile-box">
                     <h3>Upload a picture</h3>
-                    <form method="POST" class="form-group" enctype="multipart/form-data" action="Image">
-                        File to upload: <input type="file" required="required" name="upfile">
+                    <!--<label>Choose a filter</label>-->
+                        
+                    <form method="POST" class="form-group" enctype="multipart/form-data" action="Image"> 
+                        
+                         <!--<div>
+                            <select required="required" name="filterChoice">
+-                            <option value="Original">Original</option>
+-                            <option value="Black and White">Black & White</option>
+-                           </select>
+                        </div>-->
+                        File to upload: <input type="file" required="required" name="upfile">                       
+                        
                         </br>
                         </br>
+                        </br>
+
                         <input type="submit" class ="btn btn-primary" value="Upload">
                     </form>
                 </div>
 
             </div>            
+            <br>
             <br>
             <br>
             <br>
@@ -227,7 +240,7 @@
             <%
                 LinkedList<Pic> lsPics = (LinkedList<Pic>) request.getAttribute("Pics");
 
-                if (lsPics == null) {
+                if (lsPics == null || lsPics.size() == 0) {
             %>           
 
             <h1 class="text-center">You Haven't Followed Anyone Yet  :-(</h1>

@@ -53,63 +53,61 @@ public class PicModel {
         try {
             Convertors convertor = new Convertors();
 
-            String types[]=Convertors.SplitFiletype(type);
+            String types[] = Convertors.SplitFiletype(type);
             ByteBuffer buffer = ByteBuffer.wrap(b);
             int length = b.length;
             java.util.UUID picid = convertor.getTimeUUID();
-            
+
             //The following is a quick and dirty way of doing this, will fill the disk quickly !
             Boolean success = (new File("/var/tmp/instaDom/")).mkdirs();
             FileOutputStream output = new FileOutputStream(new File("/var/tmp/instaDom/" + picid));
 
+            
             output.write(b);
-            byte []  thumbb = picresize(picid.toString(),types[1]);
-            int thumblength= thumbb.length;
-            ByteBuffer thumbbuf=ByteBuffer.wrap(thumbb);
-            byte[] processedb = picdecolour(picid.toString(),types[1]);
-            ByteBuffer processedbuf=ByteBuffer.wrap(processedb);
-            int processedlength=processedb.length;
-            Session session = cluster.connect("instadom");
+            byte[] thumbb = picresize(picid.toString(), types[1]);
+            int thumblength = thumbb.length;
+            ByteBuffer thumbbuf = ByteBuffer.wrap(thumbb);
+            byte[] processedb = picdecolour(picid.toString(), types[1]);
+            ByteBuffer processedbuf = ByteBuffer.wrap(processedb);
+            int processedlength = processedb.length;
             
-            Date DateAdded = new Date();
-
-            PreparedStatement psInsertPic = session.prepare("insert into pics ( picid, image,thumb,processed, user, interaction_time,imagelength,thumblength,processedlength,type,name) values(?,?,?,?,?,?,?,?,?,?,?)");
-            BoundStatement bsInsertPic = new BoundStatement(psInsertPic);
-            session.execute(bsInsertPic.bind(picid, buffer, thumbbuf,processedbuf, user, DateAdded, length,thumblength,processedlength, type, name));
-
-            
-            
-            if (!profpic){
-                PreparedStatement psInsertPicToUser = session.prepare("insert into userpiclist ( picid, user, pic_added) values(?,?,?)");
-                BoundStatement bsInsertPicToUser = new BoundStatement(psInsertPicToUser);            
-                session.execute(bsInsertPicToUser.bind(picid, user, DateAdded));
+            try (Session session = cluster.connect("instadom")) {
+                
+                Date DateAdded = new Date();
+                
+                PreparedStatement psInsertPic = session.prepare("insert into pics ( picid, image,thumb,processed, user, interaction_time,imagelength,thumblength,processedlength,type,name) values(?,?,?,?,?,?,?,?,?,?,?)");
+                BoundStatement bsInsertPic = new BoundStatement(psInsertPic);
+                session.execute(bsInsertPic.bind(picid, buffer, thumbbuf, processedbuf, user, DateAdded, length, thumblength, processedlength, type, name));
+                
+                if (!profpic) {
+                    PreparedStatement psInsertPicToUser = session.prepare("insert into userpiclist ( picid, user, pic_added) values(?,?,?)");
+                    BoundStatement bsInsertPicToUser = new BoundStatement(psInsertPicToUser);
+                    session.execute(bsInsertPicToUser.bind(picid, user, DateAdded));
+                } else {
+                    PreparedStatement profilePic = session.prepare("update userprofiles SET picid = ? where login = ?;");
+                    BoundStatement insertProfile = new BoundStatement(profilePic);
+                    session.execute(insertProfile.bind(picid, user));
+                    System.out.println("id inserted into picid " + picid);
+                }
+                session.close();
             }
             
-            else {
-                PreparedStatement profilePic = session.prepare("update userprofiles SET picid = ? where login = ?;");
-                BoundStatement insertProfile = new BoundStatement(profilePic);
-                session.execute(insertProfile.bind(picid, user));
-                System.out.println("id inserted into picid " + picid);
-            }
-            
-            session.close();
-
         } catch (IOException ex) {
             System.out.println("Error --> " + ex);
         }
     }
-    
+
     public void deletePic(String picid) {
-        try(Session session = cluster.connect("instadom")){      
-          
+        try (Session session = cluster.connect("instadom")) {
+
             ResultSet rs = null;
             PreparedStatement ps1 = session.prepare("select * from userpiclist where picid=?");
             BoundStatement boundStatement1 = new BoundStatement(ps1);
             rs = session.execute(boundStatement1.bind(java.util.UUID.fromString(picid)));
-            
+
             String name = "";
             Date dateStamp = new Date();
-            
+
             if (rs.isExhausted()) {
             } else {
                 for (Row row : rs) {
@@ -118,26 +116,26 @@ public class PicModel {
                 }
             }
             System.out.println("User: " + name + "time: " + dateStamp);
-            
+
             PreparedStatement ps2 = session.prepare("delete from Pics where picid=?");
             BoundStatement boundStatement2 = new BoundStatement(ps2);
             session.execute(boundStatement2.bind(java.util.UUID.fromString(picid)));
-            
+
             PreparedStatement ps3 = session.prepare("delete from userpiclist where user=? and pic_added=?");
             BoundStatement boundStatement3 = new BoundStatement(ps3);
-            session.execute(boundStatement3.bind(name, dateStamp)); 
-            
-            }
+            session.execute(boundStatement3.bind(name, dateStamp));
+
+        }
     }
 
-    public byte[] picresize(String picid,String type) {
+    public byte[] picresize(String picid, String type) {
         try {
             BufferedImage BI = ImageIO.read(new File("/var/tmp/instaDom/" + picid));
             BufferedImage thumbnail = createThumbnail(BI);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(thumbnail, type, baos);
             baos.flush();
-            
+
             byte[] imageInByte = baos.toByteArray();
             baos.close();
             return imageInByte;
@@ -146,8 +144,8 @@ public class PicModel {
         }
         return null;
     }
-    
-    public byte[] picdecolour(String picid,String type) {
+
+    public byte[] picdecolour(String picid, String type) {
         try {
             BufferedImage BI = ImageIO.read(new File("/var/tmp/instaDom/" + picid));
             BufferedImage processed = createProcessed(BI);
@@ -164,17 +162,28 @@ public class PicModel {
     }
 
     public static BufferedImage createThumbnail(BufferedImage img) {
-        img = resize(img, Method.SPEED, 300, OP_ANTIALIAS);
-        // Let's add a little border before we return result.
-        return img;
+        //if (filter.equals("Black and White")) {
+            img = resize(img, Method.SPEED, 300, OP_ANTIALIAS, OP_GRAYSCALE);
+            return img;
+       /* } else // Let's add a little border before we return result.
+        {
+            img = resize(img, Method.SPEED, 300);
+            return img;
+        }*/
     }
-    
-   public static BufferedImage createProcessed(BufferedImage img) {
-        int Width=img.getWidth()-1;
-        img = resize(img, Method.SPEED, Width, OP_ANTIALIAS);
-        return img;
+
+    public static BufferedImage createProcessed(BufferedImage img) {
+        int Width = img.getWidth()-1;
+        //if (filter.equals("Black and White")) {
+            img = resize(img, Method.SPEED, Width);
+            return img;
+       /* } else // Let's add a little border before we return result.
+        {
+            img = resize(img, Method.SPEED, Width);
+            return img;
+        }*/
     }
-   
+
     public java.util.LinkedList<Pic> getPicsForUser(String User) {
         java.util.LinkedList<Pic> Pics = new java.util.LinkedList<>();
         Session session = cluster.connect("instadom");
@@ -209,9 +218,9 @@ public class PicModel {
             Convertors convertor = new Convertors();
             ResultSet rs = null;
             PreparedStatement ps = null;
-         
+
             if (image_type == Convertors.DISPLAY_IMAGE) {
-                
+
                 ps = session.prepare("select image,imagelength,type from pics where picid =?");
             } else if (image_type == Convertors.DISPLAY_THUMB) {
                 ps = session.prepare("select thumb,imagelength,thumblength,type from pics where picid =?");
@@ -234,12 +243,12 @@ public class PicModel {
                     } else if (image_type == Convertors.DISPLAY_THUMB) {
                         bImage = row.getBytes("thumb");
                         length = row.getInt("thumblength");
-                
+
                     } else if (image_type == Convertors.DISPLAY_PROCESSED) {
                         bImage = row.getBytes("processed");
                         length = row.getInt("processedlength");
                     }
-                    
+
                     type = row.getString("type");
 
                 }
@@ -255,9 +264,9 @@ public class PicModel {
         return p;
 
     }
-    
+
     public UUID getProfilePic(String username) {
-        
+
         UUID profile = null;
         Session session = cluster.connect("instadom");
         PreparedStatement ps = session.prepare("select picid from userprofiles where login =?");
@@ -274,12 +283,12 @@ public class PicModel {
         }
         return profile;
     }
-    
+
     public LinkedList<Pic> getHomePics(LinkedList<String> following) {
 
         LinkedList<Pic> Pics = new LinkedList<>();
         Map<Date, Pic> picsMap = new HashMap();
-        
+
         Session session = cluster.connect("instadom");
 
         for (String string : following) {
@@ -291,17 +300,16 @@ public class PicModel {
 
             if (rs.isExhausted()) {
                 System.out.println("No Images returned");
-            }
-            else {
+            } else {
                 for (Row row : rs) {
                     Pic pic = new Pic();
-                    
+
                     java.util.UUID UUID = row.getUUID("picid");
-                    pic.setUUID(UUID);                    
-                    pic.setFollower(string);                    
+                    pic.setUUID(UUID);
+                    pic.setFollower(string);
                     String date = row.getDate("pic_added").toString();
                     pic.setDate(date);
-                    
+
                     picsMap.put(row.getDate("pic_added"), pic);
                 }
             }

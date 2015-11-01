@@ -37,8 +37,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.UserProfile;
     "/Images",
     "/Images/*",
     "/ProfilePic",
-    "/Home/Image"    
-})
+    "/Home/Image",})
 @MultipartConfig
 
 public class Image extends HttpServlet {
@@ -46,8 +45,6 @@ public class Image extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private Cluster cluster;
     private final HashMap CommandsMap = new HashMap();
-    
-    
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -58,8 +55,9 @@ public class Image extends HttpServlet {
         CommandsMap.put("Image", 1);
         CommandsMap.put("Images", 2);
         CommandsMap.put("Thumb", 3);
-        
+
     }
+
     @Override
     public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
@@ -77,42 +75,38 @@ public class Image extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        
+
         String pathParts[] = Convertors.SplitRequestPath(request);
         System.out.println("Name from path " + pathParts[2]);
         String profilename = pathParts[2];
-        
-        
+
         HttpSession session = request.getSession();
-        LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
-        
+        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+
         User us = new User();
         us.setCluster(cluster);
-        
+
         UserProfile up = us.getUserProfile(profilename);
         request.setAttribute("UserProfile", up);
 
-        System.out.println("profilename " + profilename); 
-               
-        if (lg != null){
-            
-        
-        String username = lg.getUsername();
-        System.out.println("Current User " + username);
-        
-        LinkedList<String> followers = us.getFollowing(username);      
-        System.out.println("Linked List of passed on followers: " + followers);
-        
-              
-        boolean isMatch = followers.contains(profilename);
-        System.out.println("Profile name checked against " + profilename);
-        System.out.println("is there a match " + isMatch);
-        
-        
-        lg.setProfileMatch(isMatch);
-        System.out.println("Match set as " + lg.getProfileMatch());
-        }    
-                
+        System.out.println("profilename " + profilename);
+
+        if (lg != null) {
+
+            String username = lg.getUsername();
+            System.out.println("Current User " + username);
+
+            LinkedList<String> followers = us.getFollowing(username);
+            System.out.println("Linked List of passed on followers: " + followers);
+
+            boolean isMatch = followers.contains(profilename);
+            System.out.println("Profile name checked against " + profilename);
+            System.out.println("is there a match " + isMatch);
+
+            lg.setProfileMatch(isMatch);
+            System.out.println("Match set as " + lg.getProfileMatch());
+        }
+
         String args[] = Convertors.SplitRequestPath(request);
         int command;
         try {
@@ -123,19 +117,18 @@ public class Image extends HttpServlet {
         }
         switch (command) {
             case 1:
-                DisplayImage(Convertors.DISPLAY_PROCESSED,args[2], response);
+                DisplayImage(Convertors.DISPLAY_PROCESSED, args[2], response);
                 break;
             case 2:
                 DisplayImageList(args[2], request, response);
                 break;
             case 3:
-                DisplayImage(Convertors.DISPLAY_THUMB,args[2],  response);
+                DisplayImage(Convertors.DISPLAY_THUMB, args[2], response);
                 break;
             default:
                 error("Bad Operator", response);
         }
-        
-        
+
     }
 
     private void DisplayImageList(String User, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -148,18 +141,17 @@ public class Image extends HttpServlet {
 
     }
 
-    private void DisplayImage(int type,String Image, HttpServletResponse response) throws ServletException, IOException {
+    private void DisplayImage(int type, String Image, HttpServletResponse response) throws ServletException, IOException {
         PicModel tm = new PicModel();
         tm.setCluster(cluster);
-  
-        
-        Pic p = tm.getPic(type,java.util.UUID.fromString(Image));
-        
+
+        Pic p = tm.getPic(type, java.util.UUID.fromString(Image));
+
         OutputStream out = response.getOutputStream();
 
         response.setContentType(p.getType());
         response.setContentLength(p.getLength());
-       
+
         InputStream is = new ByteArrayInputStream(p.getBytes());
         BufferedInputStream input = new BufferedInputStream(is);
         byte[] buffer = new byte[8192];
@@ -168,12 +160,14 @@ public class Image extends HttpServlet {
         }
         out.close();
     }
+
      @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         String pathParts[] = Convertors.SplitRequestPath(request);
         System.out.println("request path " + pathParts[1]);
-        
+        String filter = (String) request.getParameter("filterChoice");
+        System.out.println("Filter Type: " + filter);
         
                 
         for (Part part : request.getParts()) {
@@ -186,7 +180,10 @@ public class Image extends HttpServlet {
             int i = is.available();
             HttpSession session=request.getSession();
             LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
-            String username="majed";
+            
+            
+            
+            String username = "majed";
             if (lg.getlogedin()){
                 username=lg.getUsername();
             }
@@ -211,7 +208,6 @@ public class Image extends HttpServlet {
         }
 
     }
-
 
     private void error(String mess, HttpServletResponse response) throws ServletException, IOException {
 

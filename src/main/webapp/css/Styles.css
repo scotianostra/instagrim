@@ -155,7 +155,7 @@ nav {
     margin-top: 20px;
 }
 .profile-box {
-   margin-bottom: 130px;
+   margin-bottom: 150px;
    height: 100px;
    margin-top: 0px;
    padding-left: 45px;
@@ -198,4 +198,7 @@ nav {
 }
 .dark-marg-fix{
     margin-top: 20px;    
+}
+.home-prof-fix {
+    left: 70px;
 }
