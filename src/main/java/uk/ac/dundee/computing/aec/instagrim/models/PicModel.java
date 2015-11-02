@@ -49,10 +49,11 @@ public class PicModel {
         this.cluster = cluster;
     }
 
-    public void insertPic(byte[] b, String type, String name, String user, boolean profpic) {
+    public void insertPic(byte[] b, String type, String name, String user, boolean profpic, String filter) {
         try {
             Convertors convertor = new Convertors();
-
+            
+   
             String types[] = Convertors.SplitFiletype(type);
             ByteBuffer buffer = ByteBuffer.wrap(b);
             int length = b.length;
@@ -64,10 +65,10 @@ public class PicModel {
 
             
             output.write(b);
-            byte[] thumbb = picresize(picid.toString(), types[1]);
+            byte[] thumbb = picresize(picid.toString(), types[1], filter);
             int thumblength = thumbb.length;
             ByteBuffer thumbbuf = ByteBuffer.wrap(thumbb);
-            byte[] processedb = picdecolour(picid.toString(), types[1]);
+            byte[] processedb = picdecolour(picid.toString(), types[1], filter);
             ByteBuffer processedbuf = ByteBuffer.wrap(processedb);
             int processedlength = processedb.length;
             
@@ -128,10 +129,10 @@ public class PicModel {
         }
     }
 
-    public byte[] picresize(String picid, String type) {
+    public byte[] picresize(String picid, String type, String filter) {
         try {
             BufferedImage BI = ImageIO.read(new File("/var/tmp/instaDom/" + picid));
-            BufferedImage thumbnail = createThumbnail(BI);
+            BufferedImage thumbnail = createThumbnail(BI, filter);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(thumbnail, type, baos);
             baos.flush();
@@ -145,10 +146,10 @@ public class PicModel {
         return null;
     }
 
-    public byte[] picdecolour(String picid, String type) {
+    public byte[] picdecolour(String picid, String type, String filter) {
         try {
             BufferedImage BI = ImageIO.read(new File("/var/tmp/instaDom/" + picid));
-            BufferedImage processed = createProcessed(BI);
+            BufferedImage processed = createProcessed(BI, filter);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(processed, type, baos);
             baos.flush();
@@ -161,27 +162,27 @@ public class PicModel {
         return null;
     }
 
-    public static BufferedImage createThumbnail(BufferedImage img) {
-        //if (filter.equals("Black and White")) {
+    public static BufferedImage createThumbnail(BufferedImage img, String filter) {
+        if (filter.equals("Black and White")) {
             img = resize(img, Method.SPEED, 300, OP_ANTIALIAS, OP_GRAYSCALE);
             return img;
-       /* } else // Let's add a little border before we return result.
+        } else // Let's add a little border before we return result.
         {
             img = resize(img, Method.SPEED, 300);
             return img;
-        }*/
+        }
     }
 
-    public static BufferedImage createProcessed(BufferedImage img) {
+    public static BufferedImage createProcessed(BufferedImage img, String filter) {
         int Width = img.getWidth()-1;
-        //if (filter.equals("Black and White")) {
+        if (filter.equals("Black and White")) {
             img = resize(img, Method.SPEED, Width);
             return img;
-       /* } else // Let's add a little border before we return result.
+       } else // Let's add a little border before we return result.
         {
             img = resize(img, Method.SPEED, Width);
             return img;
-        }*/
+        }
     }
 
     public java.util.LinkedList<Pic> getPicsForUser(String User) {

@@ -169,24 +169,33 @@ public class Image extends HttpServlet {
         String filter = (String) request.getParameter("filterChoice");
         System.out.println("Filter Type: " + filter);
         
+        String username = "majed";
+        
+        HttpSession session=request.getSession();
+            LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
+        
+        if (lg.getlogedin()){
+                username=lg.getUsername();
+            }
                 
         for (Part part : request.getParts()) {
+            
             System.out.println("Part Name " + part.getName());
+            
+            
+             if (!part.getContentType().startsWith("image/")){
+                part.delete();
+               
+                break;
+        }
 
             String type = part.getContentType();
             String filename = part.getSubmittedFileName();
             
             InputStream is = request.getPart(part.getName()).getInputStream();
-            int i = is.available();
-            HttpSession session=request.getSession();
-            LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
+            int i = is.available();       
             
             
-            
-            String username = "majed";
-            if (lg.getlogedin()){
-                username=lg.getUsername();
-            }
             if (i > 0) {
                 byte[] b = new byte[i + 1];
                 is.read(b);
@@ -194,17 +203,19 @@ public class Image extends HttpServlet {
                 PicModel tm = new PicModel();
                 tm.setCluster(cluster);
                 if (pathParts[1].equals("ProfilePic")) {
-                    tm.insertPic(b, type, filename, username, true);
+                    tm.insertPic(b, type, filename, username, true, filter);
                     response.sendRedirect("/InstaDom/Profile");
                 } else {
-                    tm.insertPic(b, type, filename, username, false); 
+                    tm.insertPic(b, type, filename, username, false, filter); 
                     response.sendRedirect("/InstaDom/Images/" + username);
                     
                 }
 
                
             }
+           
             
+        
         }
 
     }

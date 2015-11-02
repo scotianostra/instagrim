@@ -199,20 +199,19 @@
 
                 <div class="col-md-4 profile-box">
                     <h3>Upload a picture</h3>
-                    <!--<label>Choose a filter</label>-->
                         
-                    <form method="POST" class="form-group" enctype="multipart/form-data" action="Image"> 
+                    <form method="POST" class="form-group" enctype="multipart/form-data" action="Image">                      
+                        File to upload: <input type="file" required="required" name="upfile">                       
                         
-                         <!--<div>
+                        </br>
+                        <div>
+                           <label>Choose a filter</label>
                             <select required="required" name="filterChoice">
 -                            <option value="Original">Original</option>
 -                            <option value="Black and White">Black & White</option>
 -                           </select>
-                        </div>-->
-                        File to upload: <input type="file" required="required" name="upfile">                       
-                        
-                        </br>
-                        </br>
+                        </div>
+                       
                         </br>
 
                         <input type="submit" class ="btn btn-primary" value="Upload">
