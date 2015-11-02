@@ -52,8 +52,7 @@ public class PicModel {
     public void insertPic(byte[] b, String type, String name, String user, boolean profpic, String filter) {
         try {
             Convertors convertor = new Convertors();
-            
-   
+
             String types[] = Convertors.SplitFiletype(type);
             ByteBuffer buffer = ByteBuffer.wrap(b);
             int length = b.length;
@@ -63,7 +62,6 @@ public class PicModel {
             Boolean success = (new File("/var/tmp/instaDom/")).mkdirs();
             FileOutputStream output = new FileOutputStream(new File("/var/tmp/instaDom/" + picid));
 
-            
             output.write(b);
             byte[] thumbb = picresize(picid.toString(), types[1], filter);
             int thumblength = thumbb.length;
@@ -71,15 +69,15 @@ public class PicModel {
             byte[] processedb = picdecolour(picid.toString(), types[1], filter);
             ByteBuffer processedbuf = ByteBuffer.wrap(processedb);
             int processedlength = processedb.length;
-            
+
             try (Session session = cluster.connect("instadom")) {
-                
+
                 Date DateAdded = new Date();
-                
+
                 PreparedStatement psInsertPic = session.prepare("insert into pics ( picid, image,thumb,processed, user, interaction_time,imagelength,thumblength,processedlength,type,name) values(?,?,?,?,?,?,?,?,?,?,?)");
                 BoundStatement bsInsertPic = new BoundStatement(psInsertPic);
                 session.execute(bsInsertPic.bind(picid, buffer, thumbbuf, processedbuf, user, DateAdded, length, thumblength, processedlength, type, name));
-                
+
                 if (!profpic) {
                     PreparedStatement psInsertPicToUser = session.prepare("insert into userpiclist ( picid, user, pic_added) values(?,?,?)");
                     BoundStatement bsInsertPicToUser = new BoundStatement(psInsertPicToUser);
@@ -92,7 +90,7 @@ public class PicModel {
                 }
                 session.close();
             }
-            
+
         } catch (IOException ex) {
             System.out.println("Error --> " + ex);
         }
@@ -164,6 +162,8 @@ public class PicModel {
 
     public static BufferedImage createThumbnail(BufferedImage img, String filter) {
         if (filter.equals("Black and White")) {
+
+            System.out.println("Filter in Thumbnail is: " + filter);
             img = resize(img, Method.SPEED, 300, OP_ANTIALIAS, OP_GRAYSCALE);
             return img;
         } else // Let's add a little border before we return result.
@@ -174,12 +174,24 @@ public class PicModel {
     }
 
     public static BufferedImage createProcessed(BufferedImage img, String filter) {
-        int Width = img.getWidth()-1;
-        if (filter.equals("Black and White")) {
-            img = resize(img, Method.SPEED, Width);
+        int Width = img.getWidth() - 1;
+
+        System.out.println("Filter in Processed is: " + filter);
+
+        if (filter.equals("Grayscale")) {
+            img = resize(img, Method.SPEED, Width, OP_GRAYSCALE);
             return img;
-       } else // Let's add a little border before we return result.
-        {
+        }else if (filter.equals("Antialias")) {
+            img = resize(img, Method.SPEED, Width, OP_ANTIALIAS);
+            return img;
+        }else if (filter.equals("Brighter")) {
+            img = resize(img, Method.SPEED, Width, OP_BRIGHTER);
+            return img;
+        }else if (filter.equals("Darker")) {
+            img = resize(img, Method.SPEED, Width, OP_DARKER);
+            return img;
+        }else {                
+        
             img = resize(img, Method.SPEED, Width);
             return img;
         }

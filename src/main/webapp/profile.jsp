@@ -115,7 +115,17 @@
                 <h2 class="text-center">Add Profile Picture</h2>
                 <form method="POST" enctype="multipart/form-data" action="ProfilePic">
                     <div class="form-group block-center">                        
-                        <input class="border1" type="file" name="upfile">
+                        <input class="border1" type="file" name="file">
+                    </div>
+                    <div>
+                           <label>Choose a filter</label>
+                            <select required="required" name="filterChoice">
+-                            <option value="Original">Original</option>
+                             <option value="Antialias">Antialias</option>
+-                            <option value="Grayscale">Grayscale</option>
+                             <option value="Brighter">Brighter</option>
+-                            <option value="Darker">Darker</option>
+-                           </select>
                     </div>
                     <div class="text-center">                                                               
                         <input class="btn btn-primary" type="submit" value="Upload">
@@ -182,8 +192,18 @@
                 
                 <h2 class="text-center">Edit Profile Picture</h2>
                 <form method="POST" enctype="multipart/form-data" action="ProfilePic">
-                    <div class="form-group block-center">                        
-                        <input class="border1" type="file" name="upfile">
+                    <div class="form-group block-center">
+                        <div>
+                           <label>Choose a filter</label>
+                            <select required="required" name="filterChoice">
+-                            <option value="Original">Original</option>
+                             <option value="Antialias">Antialias</option>
+-                            <option value="Grayscale">Grayscale</option>
+                             <option value="Brighter">Brighter</option>
+-                            <option value="Darker">Darker</option>
+-                           </select>
+                        </div>
+                        <input class="border1" type="file" name="file">
                     </div>
                     <div class="text-center">                                                               
                         <input class="btn btn-primary" type="submit" value="Upload">

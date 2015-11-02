@@ -201,14 +201,17 @@
                     <h3>Upload a picture</h3>
                         
                     <form method="POST" class="form-group" enctype="multipart/form-data" action="Image">                      
-                        File to upload: <input type="file" required="required" name="upfile">                       
+                        File to upload: <input type="file" required="required" name="file">                       
                         
                         </br>
                         <div>
                            <label>Choose a filter</label>
                             <select required="required" name="filterChoice">
 -                            <option value="Original">Original</option>
--                            <option value="Black and White">Black & White</option>
+                             <option value="Antialias">Antialias</option>
+-                            <option value="Grayscale">Grayscale</option>
+                             <option value="Brighter">Brighter</option>
+-                            <option value="Darker">Darker</option>
 -                           </select>
                         </div>
                        
