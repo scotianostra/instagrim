@@ -57,6 +57,13 @@ public final class Keyspaces {
                     + "      following text,\n"
                     + "      PRIMARY KEY (login, following)\n"
                     + "  );";
+             String CreateComments = "CREATE TABLE if not exists instadom.comments ("
+                    + "picid uuid,"
+                    + "commenter varchar,"
+                    + "time timestamp,"
+                    + "comment text,"
+                    + "PRIMARY KEY (picid,time)"
+                    + ") WITH CLUSTERING ORDER BY (time desc);"; 
             String CreateFollowers = "CREATE TABLE if not exists instadom.followers (\n"
                     + "      login text,\n"
                     + "      follower text,\n"
@@ -118,6 +125,14 @@ public final class Keyspaces {
             System.out.println("" + CreateFollowers);
             try {
                 SimpleStatement cqlQuery = new SimpleStatement(CreateFollowers);
+                session.execute(cqlQuery);
+            } catch (Exception et) {
+                System.out.println("Can't create following table " + et);
+            }
+            
+            System.out.println("" + CreateComments);
+            try {
+                SimpleStatement cqlQuery = new SimpleStatement(CreateComments);
                 session.execute(cqlQuery);
             } catch (Exception et) {
                 System.out.println("Can't create following table " + et);

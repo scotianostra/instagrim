@@ -7,6 +7,7 @@ package uk.ac.dundee.computing.aec.instagrim.stores;
 
 import com.datastax.driver.core.utils.Bytes;
 import java.nio.ByteBuffer;
+import java.util.LinkedList;
 
 /**
  *
@@ -20,6 +21,7 @@ public class Pic {
     private int length;
     private String type;
     private java.util.UUID UUID=null;
+    private LinkedList<ComStore> comments;
     
     public void Pic() {
 
@@ -72,6 +74,14 @@ public class Pic {
     public String getFollower() {
 
         return follower;
+    }
+
+    public LinkedList getComments() {
+        return comments;
+    }
+
+    public void setComments(LinkedList comments) {
+        this.comments = comments;
     }
 
 }

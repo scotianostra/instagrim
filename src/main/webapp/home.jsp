@@ -257,15 +257,47 @@
                 <div class="darken-img dark-marg-fix centre-img-home">
                     <a href="/InstaDom/Image/<%=p.getSUUID()%>" ><img src="/InstaDom/Image/<%=p.getSUUID()%>"></a>
                 </div>
+               
                 <div class="text-center">
                     <p>Date: <%=p.getDate()%></p>
-                    <a class="" href="/InstaDom/Images/<%=p.getFollower()%>">Uploaded by <%=p.getFollower()%></a>
-                </div>
-            </div>  
-            <%}
-                }%> 
+                    Uploaded by <a class="com-text" href="/InstaDom/Images/<%=p.getFollower()%>"><%=p.getFollower()%></a>
+                </div></br>
+              <div>
+                    <% if (p.getComments() != null) {
+                            Iterator<ComStore> citerator;
+                            citerator = p.getComments().iterator();
+                            while (citerator.hasNext()) {
+                                ComStore c = (ComStore) citerator.next();%>
+                                <p> Comment by <a class="com-text" href="/InstaDom/Images/<%=c.getCommenter()%>"><%=c.getCommenter()%> </a>
+                                    @ <%=c.getTime()%>
+                                <div class="com-text"><%=c.getComment()%></div></p>
+                    <% }
+                        }%>
+                
 
+                <%if (lg != null) {%>
+                <form method="POST" class="form-group" action="${pageContext.request.contextPath}/Comment">
+                    <input type="textarea" name="comment" rows="1" class="form-control" cols="48" placeholder="Comment here...." required>
+                    </br>
+                    <input type="submit" class="btn btn-default" value="Comment" >                     
+                    <input type="hidden" name="commenter" value="<%=lg.getUsername()%>">
+                    <input type="hidden" name="username" value="<%=request.getAttribute("user")%>">
+                    <input type="hidden" name="picid" value="<%=p.getSUUID()%>">     
+                </form> 
+                </div>  
+            
+                
+                <%}%>
+            </div></br>
+                    <%}%>
+           
+            <%}
+               
+            %> 
+
+        
         </div>
+            
         <footer>
 
         </footer>

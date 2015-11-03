@@ -35,7 +35,8 @@ import org.imgscalr.Scalr.Method;
 import java.util.UUID;
 import uk.ac.dundee.computing.aec.instagrim.lib.*;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
-//import uk.ac.dundee.computing.aec.stores.TweetStore;
+import uk.ac.dundee.computing.aec.instagrim.stores.ComStore;
+
 
 public class PicModel {
 
@@ -215,6 +216,8 @@ public class PicModel {
                 java.util.UUID UUID = row.getUUID("picid");
                 System.out.println("UUID" + UUID.toString());
                 pic.setUUID(UUID);
+                LinkedList<ComStore> comments = getComments(UUID);
+                pic.setComments(comments);
                 Pics.add(pic);
 
             }
@@ -322,7 +325,8 @@ public class PicModel {
                     pic.setFollower(string);
                     String date = row.getDate("pic_added").toString();
                     pic.setDate(date);
-
+                    LinkedList<ComStore> comments = getComments(UUID);
+                    pic.setComments(comments);
                     picsMap.put(row.getDate("pic_added"), pic);
                 }
             }
@@ -336,5 +340,44 @@ public class PicModel {
 
         return Pics;
     }
+    
+    public void addComments(UUID picid, String commenter, String comment) {
+        Session session = cluster.connect("instadom");
+        Date date = new Date();
+
+        PreparedStatement ps = session.prepare("INSERT into comments ( picid, commenter, time, comment) values(?,?,?,?)");
+        BoundStatement bs = new BoundStatement(ps);
+        session.execute(bs.bind(picid, commenter, date, comment));
+
+        session.close();
+    }
+
+    public LinkedList<ComStore> getComments(UUID picid) {
+        
+        LinkedList<ComStore> comments = new LinkedList<>();
+        Session session = cluster.connect("instadom");
+        
+        PreparedStatement ps = session.prepare("SELECT commenter,time,comment from comments where picid =?");
+        BoundStatement boundStatement = new BoundStatement(ps);
+        ResultSet rs = session.execute(boundStatement.bind(picid));
+        
+        if (rs.isExhausted()) {
+            System.out.println("No Comments returned");
+            return null;
+        } else {
+            for (Row row : rs) {
+                String commenter = row.getString("commenter");
+                String comment = row.getString("comment");
+                Date time = row.getDate("time");
+
+                ComStore c = new ComStore();
+                c.setCom(commenter, comment, time);
+
+                comments.add(c);
+            }
+        }
+        return comments;
+    }
+
 
 }
