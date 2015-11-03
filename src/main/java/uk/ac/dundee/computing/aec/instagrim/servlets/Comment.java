@@ -42,14 +42,14 @@ public class Comment extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String comment = request.getParameter("comment");
         String commenter = request.getParameter("commenter");
+        String comment = request.getParameter("comment");
         UUID picid = UUID.fromString(request.getParameter("picid"));
-        String username = request.getParameter("username");
+       
         
         PicModel pic = new PicModel();
         pic.setCluster(cluster);
-        pic.addComments(picid, commenter, comment);
+        pic.addComments(commenter, comment, picid);
 
         response.sendRedirect("/InstaDom/Home");
     }

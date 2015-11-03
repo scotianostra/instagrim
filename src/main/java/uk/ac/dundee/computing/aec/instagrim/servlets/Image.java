@@ -209,11 +209,7 @@ public class Image extends HttpServlet {
 
                
             }
-           
-            
-        
-        
-
+                   
     }
 
     private void error(String mess, HttpServletResponse response) throws ServletException, IOException {

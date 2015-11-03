@@ -45,6 +45,16 @@ public class Profile extends HttpServlet {
         us.setCluster(cluster);
         UserProfile up = us.getUserProfile(usname);
         
+        if(up.getFirstname() == null){
+            up.setFirstname("");
+            }
+        if(up.getLastname() == null){
+            up.setLastname("");
+            }
+        if(up.getBio() == null){
+            up.setBio("");
+            }
+        
         request.setAttribute("username", usname);
         request.setAttribute("UserProfile", up);
         //System.out.println("Fname " + up.getFirstname());

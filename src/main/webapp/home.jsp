@@ -264,10 +264,10 @@
                 </div></br>
               <div>
                     <% if (p.getComments() != null) {
-                            Iterator<ComStore> citerator;
-                            citerator = p.getComments().iterator();
-                            while (citerator.hasNext()) {
-                                ComStore c = (ComStore) citerator.next();%>
+                            Iterator<ComStore> iterator2;
+                            iterator2 = p.getComments().iterator();
+                            while (iterator2.hasNext()) {
+                                ComStore c = (ComStore) iterator2.next();%>
                                 <p> Comment by <a class="com-text" href="/InstaDom/Images/<%=c.getCommenter()%>"><%=c.getCommenter()%> </a>
                                     @ <%=c.getTime()%>
                                 <div class="com-text"><%=c.getComment()%></div></p>

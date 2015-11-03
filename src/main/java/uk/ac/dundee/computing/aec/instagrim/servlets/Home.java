@@ -85,7 +85,8 @@ public class Home extends HttpServlet {
         us.setCluster(cluster);
         
         LinkedList<String> following = new LinkedList<String>();
-        following = us.getFollowing(username);        
+        following = us.getFollowing(username);
+        following.add(username);
             
         LinkedList<Pic> pics = tm.getHomePics(following);
         System.out.println("Linked List all following: " + following);

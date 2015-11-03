@@ -341,7 +341,7 @@ public class PicModel {
         return Pics;
     }
     
-    public void addComments(UUID picid, String commenter, String comment) {
+    public void addComments(String commenter, String comment,UUID picid) {
         Session session = cluster.connect("instadom");
         Date date = new Date();
 
@@ -370,10 +370,10 @@ public class PicModel {
                 String comment = row.getString("comment");
                 Date time = row.getDate("time");
 
-                ComStore c = new ComStore();
-                c.setCom(commenter, comment, time);
+                ComStore comms = new ComStore();
+                comms.setCom(commenter, comment, time);
 
-                comments.add(c);
+                comments.add(comms);
             }
         }
         return comments;
