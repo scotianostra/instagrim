@@ -208,7 +208,6 @@
                            <label>Choose a filter</label>
                             <select required="required" name="filterChoice">
 -                            <option value="Original">Original</option>
-                             <option value="Antialias">Antialias</option>
 -                            <option value="Grayscale">Grayscale</option>
                              <option value="Brighter">Brighter</option>
 -                            <option value="Darker">Darker</option>

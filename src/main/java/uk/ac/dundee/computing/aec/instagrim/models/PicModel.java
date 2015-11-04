@@ -179,22 +179,20 @@ public class PicModel {
 
         System.out.println("Filter in Processed is: " + filter);
 
-        if (filter.equals("Grayscale")) {
-            img = resize(img, Method.SPEED, Width, OP_GRAYSCALE);
-            return img;
-        }else if (filter.equals("Antialias")) {
-            img = resize(img, Method.SPEED, Width, OP_ANTIALIAS);
-            return img;
-        }else if (filter.equals("Brighter")) {
-            img = resize(img, Method.SPEED, Width, OP_BRIGHTER);
-            return img;
-        }else if (filter.equals("Darker")) {
-            img = resize(img, Method.SPEED, Width, OP_DARKER);
-            return img;
-        }else {                
         
-            img = resize(img, Method.SPEED, Width);
-            return img;
+        switch (filter) {
+            case "Grayscale":
+                img = resize(img, Method.SPEED, Width, OP_ANTIALIAS, OP_GRAYSCALE);
+                return img;
+            case "Brighter":
+                img = resize(img, Method.SPEED, Width, OP_ANTIALIAS, OP_BRIGHTER);
+                return img;
+            case "Darker":
+                img = resize(img, Method.SPEED, Width, OP_ANTIALIAS, OP_DARKER);
+                return img;
+            default:
+                img = resize(img, Method.SPEED, Width, OP_ANTIALIAS);
+                return img;
         }
     }
 
